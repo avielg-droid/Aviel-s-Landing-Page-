@@ -1,0 +1,1227 @@
+# Landing Page Redesign — "Growth Dashboard" Implementation Plan
+
+> **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
+
+**Goal:** Rebuild `index.html` from a generic dark-navy freelancer template into a bold "live Amazon analytics console" aesthetic.
+
+**Architecture:** Single HTML file — all CSS in `<style>`, all JS in `<script>`. No build tools, no frameworks. Each task touches only the relevant section of the file. Verify visually in a browser after each task.
+
+**Tech Stack:** HTML5, CSS3 (custom properties, grid, flexbox, keyframes), Vanilla JS (IntersectionObserver, requestAnimationFrame), Google Fonts (Syne + JetBrains Mono + Inter).
+
+**Design doc:** `docs/plans/2026-02-19-landing-page-redesign.md`
+
+---
+
+## Task 1: CSS Variables, Fonts, Base Reset
+
+**Files:**
+- Modify: `index.html` — `<head>` section (lines 1–21)
+
+**Step 1: Replace the Google Fonts import**
+
+Find this line:
+```html
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+```
+
+Replace with:
+```html
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+```
+
+**Step 2: Replace the `:root` CSS variables**
+
+Find the `:root` block and replace entirely with:
+```css
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --card: #161616;
+  --border: #222222;
+  --green: #00ff87;
+  --orange: #ff9900;
+  --blue: #00d4ff;
+  --text: #f5f5f5;
+  --muted: #666666;
+  --radius: 12px;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Inter', sans-serif;
+  --display: 'Syne', sans-serif;
+}
+```
+
+**Step 3: Update `body` font and background**
+
+Find the `body` rule and replace:
+```css
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+```
+
+**Step 4: Delete the orb CSS entirely**
+
+Delete everything between `/* ── Animated background orbs ── */` and the `/* ── Nav ── */` comment (lines ~33–74). This removes `.orb`, `.orb-1`, `.orb-2`, `.orb-3`, and the three `@keyframes orbFloat` blocks.
+
+**Step 5: Delete the orb HTML elements**
+
+In the `<body>`, delete these three lines:
+```html
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+```
+
+**Step 6: Open in browser and verify**
+
+Open `index.html` in a browser. The page should render with a near-black background and no orange blobs floating. Fonts may look slightly different — Syne won't apply yet until headings are updated in later tasks.
+
+**Step 7: Commit**
+```bash
+git add index.html
+git commit -m "redesign: update palette, fonts, remove orbs"
+```
+
+---
+
+## Task 2: Nav — Monospace Logo + Live Status
+
+**Files:**
+- Modify: `index.html` — nav CSS block and nav HTML
+
+**Step 1: Replace the nav CSS block**
+
+Find `/* ── Nav ── */` and replace the entire nav CSS section with:
+```css
+/* ── Nav ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+  background: rgba(10,10,10,.85);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: padding .3s, background .3s;
+}
+nav.scrolled {
+  padding: 14px 60px;
+  background: rgba(10,10,10,.96);
+}
+
+.nav-logo {
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--green);
+  letter-spacing: 0;
+  display: flex;
+  align-items: center;
+}
+.nav-logo .cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: var(--green);
+  margin-left: 2px;
+  animation: blink 1.1s step-end infinite;
+  vertical-align: middle;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.nav-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: .75rem;
+  color: var(--green);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.nav-status-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 10px var(--green);
+  animation: statusPulse 2s ease-in-out infinite;
+}
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 10px var(--green); }
+  50% { opacity: .6; box-shadow: 0 0 4px var(--green); }
+}
+
+.nav-links { display: flex; gap: 32px; }
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: .82rem;
+  font-weight: 500;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--text); }
+```
+
+**Step 2: Replace the nav HTML**
+
+Find the `<nav id="nav">` block and replace entirely with:
+```html
+<nav id="nav">
+  <div class="nav-logo">AG_<span class="cursor"></span></div>
+  <div class="nav-right">
+    <div class="nav-status">
+      <div class="nav-status-dot"></div>
+      Available
+    </div>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#why">Why Me</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+```
+
+**Step 3: Verify in browser**
+
+Scroll down — the nav should shrink. Logo should show `AG_` in green with a blinking cursor. A pulsing green dot + "AVAILABLE" text on the right.
+
+**Step 4: Commit**
+```bash
+git add index.html
+git commit -m "redesign: nav with monospace logo and live status indicator"
+```
+
+---
+
+## Task 3: Hero — Split Layout with Performance Panel
+
+**Files:**
+- Modify: `index.html` — hero CSS and hero HTML
+
+**Step 1: Replace the hero CSS**
+
+Delete the entire hero CSS section (from `/* ── Hero ── */` through all the `.badge`, `.badge-dot`, `h1`, `.hero-sub`, `.hero-cta`, `.btn` variants, and all related `@keyframes`). Replace with:
+
+```css
+/* ── Hero ── */
+.hero {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 55fr 45fr;
+  align-items: center;
+  padding: 120px 60px 80px;
+  gap: 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Dot-grid background */
+.hero::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle, #222 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: .4;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-left {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: .75rem;
+  color: var(--green);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  animation: fadeUp .5s ease both;
+}
+
+h1 {
+  font-family: var(--display);
+  font-size: clamp(2.6rem, 5vw, 5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -2px;
+  margin-bottom: 24px;
+  animation: fadeUp .5s .1s ease both;
+}
+
+h1 .highlight {
+  color: var(--green);
+}
+
+.hero-sub {
+  font-size: 1.05rem;
+  color: var(--muted);
+  max-width: 460px;
+  line-height: 1.75;
+  margin-bottom: 44px;
+  font-weight: 400;
+  animation: fadeUp .5s .2s ease both;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  animation: fadeUp .5s .3s ease both;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 26px;
+  border-radius: 8px;
+  font-size: .88rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: transform .2s, box-shadow .2s, background .2s;
+  font-family: var(--mono);
+  letter-spacing: .04em;
+}
+.btn:hover { transform: translateY(-3px); }
+.btn:active { transform: translateY(-1px); }
+
+.btn-primary {
+  background: var(--green);
+  color: #000;
+  box-shadow: 0 6px 24px rgba(0,255,135,.25);
+}
+.btn-primary:hover { box-shadow: 0 12px 36px rgba(0,255,135,.4); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.btn-secondary:hover { border-color: var(--green); color: var(--green); }
+
+.btn-linkedin { background: #0a66c2; color: #fff; }
+.btn-whatsapp { background: #25d366; color: #fff; }
+
+/* Performance panel */
+.hero-right {
+  position: relative;
+  z-index: 1;
+  animation: fadeUp .5s .2s ease both;
+}
+
+.perf-panel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.perf-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.perf-panel-title {
+  font-family: var(--mono);
+  font-size: .72rem;
+  color: var(--muted);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.perf-live {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: .7rem;
+  color: var(--green);
+  letter-spacing: .08em;
+}
+.perf-live-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: statusPulse 1.8s ease-in-out infinite;
+}
+
+.perf-stats {
+  padding: 8px 0;
+}
+
+.perf-stat-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  transition: background .2s;
+}
+.perf-stat-row:last-child { border-bottom: none; }
+.perf-stat-row:hover { background: rgba(255,255,255,.02); }
+
+.perf-stat-label {
+  font-family: var(--mono);
+  font-size: .72rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.perf-stat-value {
+  font-family: var(--mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--green);
+  line-height: 1;
+}
+
+.perf-stat-badge {
+  font-family: var(--mono);
+  font-size: .65rem;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(0,255,135,.1);
+  color: var(--green);
+  border: 1px solid rgba(0,255,135,.2);
+  letter-spacing: .06em;
+}
+
+.perf-panel-footer {
+  padding: 12px 20px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.perf-tag {
+  font-family: var(--mono);
+  font-size: .65rem;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: rgba(255,255,255,.04);
+  color: var(--muted);
+  border: 1px solid var(--border);
+  letter-spacing: .06em;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.perf-tag-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--green);
+}
+
+/* Hero ring — remove */
+.hero-ring { display: none; }
+```
+
+**Step 2: Replace the hero HTML**
+
+Find the `<div class="hero">` block and replace entirely with:
+```html
+<div class="hero">
+  <!-- Left: Editorial content -->
+  <div class="hero-left">
+    <div class="hero-eyebrow">01 / Amazon Specialist</div>
+    <h1>The Amazon<br>Operator That<br><span class="highlight">Moves Numbers</span></h1>
+    <p class="hero-sub">
+      Helping brands and entrepreneurs scale on Amazon — from listing optimization
+      to full-funnel growth. Data-driven. Results-obsessed.
+    </p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-primary">&gt; start_project</a>
+      <a href="#services" class="btn btn-secondary">&gt; view_services</a>
+    </div>
+  </div>
+
+  <!-- Right: Performance Panel -->
+  <div class="hero-right">
+    <div class="perf-panel">
+      <div class="perf-panel-header">
+        <span class="perf-panel-title">Client Portfolio</span>
+        <span class="perf-live"><span class="perf-live-dot"></span>Live</span>
+      </div>
+      <div class="perf-stats">
+        <div class="perf-stat-row">
+          <span class="perf-stat-label">Brands Scaled</span>
+          <span class="perf-stat-value" data-target="150" data-suffix="+">150+</span>
+          <span class="perf-stat-badge">▲ ACTIVE</span>
+        </div>
+        <div class="perf-stat-row">
+          <span class="perf-stat-label">Revenue Generated</span>
+          <span class="perf-stat-value" data-target="10" data-prefix="$" data-suffix="M+">$10M+</span>
+          <span class="perf-stat-badge">▲ TRACKED</span>
+        </div>
+        <div class="perf-stat-row">
+          <span class="perf-stat-label">Client Satisfaction</span>
+          <span class="perf-stat-value" data-target="98" data-suffix="%">98%</span>
+          <span class="perf-stat-badge">● VERIFIED</span>
+        </div>
+        <div class="perf-stat-row">
+          <span class="perf-stat-label">Years Experience</span>
+          <span class="perf-stat-value" data-target="7" data-suffix="+">7+</span>
+          <span class="perf-stat-badge">● EXPERT</span>
+        </div>
+      </div>
+      <div class="perf-panel-footer">
+        <span class="perf-tag"><span class="perf-tag-dot"></span>LISTING</span>
+        <span class="perf-tag"><span class="perf-tag-dot"></span>PPC</span>
+        <span class="perf-tag"><span class="perf-tag-dot"></span>LAUNCH</span>
+        <span class="perf-tag"><span class="perf-tag-dot"></span>ANALYTICS</span>
+        <span class="perf-tag"><span class="perf-tag-dot"></span>BRAND</span>
+        <span class="perf-tag"><span class="perf-tag-dot"></span>FBA</span>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+**Step 3: Remove the old stats strip HTML**
+
+Find and delete the `<div class="stats reveal">` block (the 4-stat strip below the marquee). The stats now live in the performance panel.
+
+**Step 4: Verify in browser**
+
+- Left side: large Syne headline with "Moves Numbers" in green, two monospace CTA buttons
+- Right side: dark panel with 4 stat rows and a green "Live" blinking dot
+- Dot-grid subtle pattern in background
+
+**Step 5: Commit**
+```bash
+git add index.html
+git commit -m "redesign: hero split layout with live performance panel"
+```
+
+---
+
+## Task 4: Marquee — Stock Ticker Style
+
+**Files:**
+- Modify: `index.html` — marquee CSS and marquee HTML
+
+**Step 1: Replace the marquee CSS**
+
+Find `/* ── Marquee strip ── */` and replace the block with:
+```css
+/* ── Marquee strip ── */
+.marquee-wrap {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  padding: 10px 0;
+}
+.marquee-track {
+  display: flex;
+  gap: 0;
+  white-space: nowrap;
+  animation: marquee 32s linear infinite;
+  width: max-content;
+}
+.marquee-track span {
+  font-family: var(--mono);
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.marquee-track span.up {
+  color: var(--green);
+  font-weight: 700;
+}
+.marquee-track span.sep {
+  color: var(--border);
+  padding: 0 4px;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+```
+
+**Step 2: Replace the marquee HTML**
+
+Find the `<div class="marquee-wrap">` block and replace:
+```html
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="up">▲ Listing Optimization</span><span class="sep">|</span>
+    <span class="up">▲ PPC Management</span><span class="sep">|</span>
+    <span class="up">▲ Product Launch</span><span class="sep">|</span>
+    <span class="up">▲ Brand Protection</span><span class="sep">|</span>
+    <span class="up">▲ Analytics &amp; Reporting</span><span class="sep">|</span>
+    <span class="up">▲ FBA / FBM Strategy</span><span class="sep">|</span>
+    <span class="up">▲ A+ Content</span><span class="sep">|</span>
+    <span class="up">▲ Revenue Growth</span><span class="sep">|</span>
+    <!-- duplicate for seamless loop -->
+    <span class="up">▲ Listing Optimization</span><span class="sep">|</span>
+    <span class="up">▲ PPC Management</span><span class="sep">|</span>
+    <span class="up">▲ Product Launch</span><span class="sep">|</span>
+    <span class="up">▲ Brand Protection</span><span class="sep">|</span>
+    <span class="up">▲ Analytics &amp; Reporting</span><span class="sep">|</span>
+    <span class="up">▲ FBA / FBM Strategy</span><span class="sep">|</span>
+    <span class="up">▲ A+ Content</span><span class="sep">|</span>
+    <span class="up">▲ Revenue Growth</span><span class="sep">|</span>
+  </div>
+</div>
+```
+
+**Step 3: Verify in browser**
+
+Marquee should look like a stock ticker — green monospace `▲ Service Name` items separated by `|` dividers, on a dark surface background.
+
+**Step 4: Commit**
+```bash
+git add index.html
+git commit -m "redesign: marquee restyled as stock market ticker"
+```
+
+---
+
+## Task 5: Services — Campaign Rows (replace card grid)
+
+**Files:**
+- Modify: `index.html` — services CSS and services HTML
+
+**Step 1: Delete the old services CSS**
+
+Find `/* ── Services grid ── */` and delete everything from there through `.service-desc { ... }`.
+
+**Step 2: Add the campaign rows CSS**
+
+In its place, add:
+```css
+/* ── Services — Campaign Rows ── */
+.services-table {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.campaign-row {
+  display: grid;
+  grid-template-columns: 48px 1fr auto auto;
+  align-items: center;
+  gap: 20px;
+  padding: 22px 28px;
+  border-bottom: 1px solid var(--border);
+  background: var(--card);
+  transition: background .2s, border-left .2s;
+  border-left: 3px solid transparent;
+  cursor: default;
+}
+.campaign-row:last-child { border-bottom: none; }
+.campaign-row:hover {
+  background: rgba(0,255,135,.03);
+  border-left-color: var(--green);
+}
+
+.campaign-num {
+  font-family: var(--mono);
+  font-size: .72rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.campaign-info { min-width: 0; }
+
+.campaign-name {
+  font-family: var(--display);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--text);
+}
+
+.campaign-desc {
+  font-size: .85rem;
+  color: var(--muted);
+  line-height: 1.5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.campaign-status {
+  font-family: var(--mono);
+  font-size: .68rem;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: rgba(0,255,135,.08);
+  color: var(--green);
+  border: 1px solid rgba(0,255,135,.18);
+  letter-spacing: .08em;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.campaign-status-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: statusPulse 2s ease-in-out infinite;
+}
+```
+
+**Step 3: Replace the services HTML**
+
+Find `<section id="services">` and replace the entire section with:
+```html
+<section id="services">
+  <div class="section-label reveal">What I Do</div>
+  <h2 class="section-title reveal" style="font-family: var(--display);">Full-Spectrum Amazon<br>Growth Services</h2>
+  <p class="section-sub reveal">
+    From product launch to scaling — every layer of your Amazon business
+    covered to maximize visibility and profitability.
+  </p>
+  <div class="services-table reveal-stagger">
+    <div class="campaign-row">
+      <span class="campaign-num">01</span>
+      <div class="campaign-info">
+        <div class="campaign-name">Listing Optimization</div>
+        <div class="campaign-desc">Keyword-rich titles, bullet points, and A+ Content crafted to convert browsers into buyers and boost organic ranking.</div>
+      </div>
+      <span class="campaign-status"><span class="campaign-status-dot"></span>ACTIVE</span>
+    </div>
+    <div class="campaign-row">
+      <span class="campaign-num">02</span>
+      <div class="campaign-info">
+        <div class="campaign-name">PPC Campaign Management</div>
+        <div class="campaign-desc">Data-driven Sponsored Products, Brands, and Display campaigns that lower ACoS while scaling profitable ad spend.</div>
+      </div>
+      <span class="campaign-status"><span class="campaign-status-dot"></span>RUNNING</span>
+    </div>
+    <div class="campaign-row">
+      <span class="campaign-num">03</span>
+      <div class="campaign-info">
+        <div class="campaign-name">Product Launch Strategy</div>
+        <div class="campaign-desc">Proven launch playbooks to rank on page one fast — combining initial velocity, reviews, and targeted PPC.</div>
+      </div>
+      <span class="campaign-status"><span class="campaign-status-dot"></span>ACTIVE</span>
+    </div>
+    <div class="campaign-row">
+      <span class="campaign-num">04</span>
+      <div class="campaign-info">
+        <div class="campaign-name">Analytics &amp; Reporting</div>
+        <div class="campaign-desc">In-depth performance reviews with clear, actionable insights so you always know what's working and where to invest next.</div>
+      </div>
+      <span class="campaign-status"><span class="campaign-status-dot"></span>TRACKING</span>
+    </div>
+    <div class="campaign-row">
+      <span class="campaign-num">05</span>
+      <div class="campaign-info">
+        <div class="campaign-name">Brand Registry &amp; Protection</div>
+        <div class="campaign-desc">Secure your brand, fight hijackers, and unlock premium Amazon tools like A+ Content, Storefronts, and Brand Analytics.</div>
+      </div>
+      <span class="campaign-status"><span class="campaign-status-dot"></span>SECURED</span>
+    </div>
+    <div class="campaign-row">
+      <span class="campaign-num">06</span>
+      <div class="campaign-info">
+        <div class="campaign-name">Inventory &amp; Logistics</div>
+        <div class="campaign-desc">FBA/FBM planning, reorder strategy, and supplier coordination to keep you in stock and avoid costly storage fees.</div>
+      </div>
+      <span class="campaign-status"><span class="campaign-status-dot"></span>OPTIMIZED</span>
+    </div>
+  </div>
+</section>
+```
+
+**Step 4: Update the section-label CSS to match the new aesthetic**
+
+Find `.section-label` and update:
+```css
+.section-label {
+  font-family: var(--mono);
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-label::before {
+  content: '';
+  display: inline-block;
+  width: 20px; height: 1px;
+  background: var(--green);
+}
+
+.section-title {
+  font-family: var(--display);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -1px;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.section-sub {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.75;
+  max-width: 540px;
+  margin-bottom: 40px;
+}
+```
+
+**Step 5: Verify in browser**
+
+Services section should show 6 rows in a dark table. Each row: number, name, description, green `● ACTIVE` badge. Hover on a row should show green left border.
+
+**Step 6: Commit**
+```bash
+git add index.html
+git commit -m "redesign: services as campaign rows table with live status badges"
+```
+
+---
+
+## Task 6: Why Me — Dashboard Audit Style
+
+**Files:**
+- Modify: `index.html` — why-me CSS and HTML
+
+**Step 1: Delete old why CSS**
+
+Find `/* ── Why Me ── */` and delete through `.why-desc { ... }`.
+
+**Step 2: Add new why CSS**
+```css
+/* ── Why Me ── */
+.why-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.why-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  transition: border-color .2s, box-shadow .2s;
+  border-left: 3px solid transparent;
+}
+.why-item:hover {
+  border-color: rgba(0,255,135,.3);
+  border-left-color: var(--green);
+  box-shadow: 0 8px 32px rgba(0,0,0,.3);
+}
+
+.why-check {
+  font-family: var(--mono);
+  font-size: .68rem;
+  color: var(--green);
+  background: rgba(0,255,135,.08);
+  border: 1px solid rgba(0,255,135,.18);
+  padding: 3px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 14px;
+  letter-spacing: .08em;
+}
+
+.why-title {
+  font-family: var(--display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.why-desc { color: var(--muted); font-size: .88rem; line-height: 1.65; }
+```
+
+**Step 3: Update the Why Me HTML**
+
+Find `<section id="why">` and replace with:
+```html
+<section id="why">
+  <div class="section-label reveal">Why Choose Me</div>
+  <h2 class="section-title reveal">An Expert Who Treats<br>Your Business Like His Own</h2>
+  <p class="section-sub reveal">
+    No cookie-cutter strategies. Every client gets a tailored approach
+    built around their specific goals and marketplace reality.
+  </p>
+  <div class="why-grid reveal-stagger">
+    <div class="why-item">
+      <div class="why-check">✓ VERIFIED</div>
+      <div class="why-title">Results-First Mindset</div>
+      <div class="why-desc">Every decision is driven by data and ROI — no vanity metrics, just real growth that impacts your bottom line.</div>
+    </div>
+    <div class="why-item">
+      <div class="why-check">✓ VERIFIED</div>
+      <div class="why-title">Deep Platform Expertise</div>
+      <div class="why-desc">Years of hands-on experience across dozens of categories, from private label to wholesale and beyond.</div>
+    </div>
+    <div class="why-item">
+      <div class="why-check">✓ VERIFIED</div>
+      <div class="why-title">Transparent Communication</div>
+      <div class="why-desc">Regular updates, honest reporting, and direct access to me — you'll always know exactly where things stand.</div>
+    </div>
+    <div class="why-item">
+      <div class="why-check">✓ VERIFIED</div>
+      <div class="why-title">End-to-End Support</div>
+      <div class="why-desc">From account setup to advanced scaling, I'm your single point of contact for everything Amazon.</div>
+    </div>
+  </div>
+</section>
+```
+
+**Step 4: Verify in browser**
+
+Why Me cards should have a dashboard feel — green `✓ VERIFIED` badge above each title, hover reveals green left border.
+
+**Step 5: Commit**
+```bash
+git add index.html
+git commit -m "redesign: why-me section as dashboard audit findings"
+```
+
+---
+
+## Task 7: CTA Band — Terminal Prompt
+
+**Files:**
+- Modify: `index.html` — CTA band CSS and HTML
+
+**Step 1: Replace CTA band CSS**
+
+Find `/* ── CTA band ── */` and replace through its closing `}` with:
+```css
+/* ── CTA band ── */
+.cta-band {
+  position: relative;
+  z-index: 1;
+  margin: 0 40px 100px;
+  border-radius: 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 80px 60px;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Green top border line */
+.cta-band::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--green), transparent);
+}
+
+.cta-band .terminal-prompt {
+  font-family: var(--mono);
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  color: var(--green);
+  margin-bottom: 12px;
+  letter-spacing: -.5px;
+}
+
+.cta-band h2 {
+  font-family: var(--display);
+  font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 14px;
+}
+
+.cta-band p {
+  color: var(--muted);
+  font-size: 1rem;
+  margin-bottom: 36px;
+  max-width: 460px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+}
+```
+
+**Step 2: Replace CTA band HTML**
+
+Find `<div class="cta-band reveal" id="contact">` and replace:
+```html
+<div class="cta-band reveal" id="contact">
+  <div class="terminal-prompt">$ aviel --start-project</div>
+  <h2>Ready to Grow Your<br>Amazon Business?</h2>
+  <p>Let's talk about your goals and build a strategy that gets you there. First consultation is on me.</p>
+  <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center;">
+    <a href="mailto:aviel@gendler.com" class="btn btn-primary" style="font-size:.9rem; padding: 14px 32px;">
+      &gt; send_email
+    </a>
+    <a href="https://www.linkedin.com/in/aviel-gendler-marketing/" target="_blank" rel="noopener" class="btn btn-linkedin" style="font-size:.9rem; padding: 14px 32px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      open_linkedin
+    </a>
+    <a href="https://wa.me/972547516999" target="_blank" rel="noopener" class="btn btn-whatsapp" style="font-size:.9rem; padding: 14px 32px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+      message_whatsapp
+    </a>
+  </div>
+</div>
+```
+
+**Step 3: Verify in browser**
+
+CTA should show green terminal prompt `$ aviel --start-project` above the headline, with a subtle green top-border line on the card. Buttons are monospace-styled terminal commands.
+
+**Step 4: Commit**
+```bash
+git add index.html
+git commit -m "redesign: CTA band as terminal prompt"
+```
+
+---
+
+## Task 8: Footer — Ultra Minimal
+
+**Files:**
+- Modify: `index.html` — footer CSS and HTML
+
+**Step 1: Replace footer CSS**
+
+Find `/* ── Footer ── */` and replace through end of footer styles:
+```css
+/* ── Footer ── */
+footer {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--border);
+  padding: 28px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: .72rem;
+  color: var(--green);
+  letter-spacing: .08em;
+}
+.footer-status-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: statusPulse 2s ease-in-out infinite;
+}
+
+footer .footer-copy {
+  font-family: var(--mono);
+  color: var(--muted);
+  font-size: .72rem;
+  letter-spacing: .04em;
+}
+
+.social-links {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.social-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: .72rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform .2s, opacity .2s;
+  letter-spacing: .04em;
+}
+.social-links a:hover { transform: translateY(-2px); opacity: .85; }
+.social-links .s-linkedin { background: #0a66c2; color: #fff; }
+.social-links .s-whatsapp { background: #25d366; color: #fff; }
+```
+
+**Step 2: Replace footer HTML**
+
+```html
+<footer>
+  <div class="footer-status">
+    <div class="footer-status-dot"></div>
+    SYSTEM STATUS: ONLINE
+  </div>
+  <div class="social-links">
+    <a href="https://www.linkedin.com/in/aviel-gendler-marketing/" target="_blank" rel="noopener" class="s-linkedin">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn
+    </a>
+    <a href="https://wa.me/972547516999" target="_blank" rel="noopener" class="s-whatsapp">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+      WhatsApp
+    </a>
+  </div>
+  <p class="footer-copy">&copy; 2026 Aviel Gendler. All rights reserved.</p>
+</footer>
+```
+
+**Step 3: Verify in browser**
+
+Footer: left = green pulsing dot + `SYSTEM STATUS: ONLINE`, center = social buttons, right = copyright. All in monospace.
+
+**Step 4: Commit**
+```bash
+git add index.html
+git commit -m "redesign: footer with system status indicator"
+```
+
+---
+
+## Task 9: Mobile Responsiveness
+
+**Files:**
+- Modify: `index.html` — responsive CSS at the bottom of `<style>`
+
+**Step 1: Replace the `@media` block**
+
+Find `/* ── Responsive ── */` and replace the entire `@media` block with:
+```css
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 100px 28px 60px;
+    gap: 48px;
+    text-align: center;
+  }
+  .hero-left { display: flex; flex-direction: column; align-items: center; }
+  .hero-sub { text-align: center; }
+  .hero-cta { justify-content: center; }
+  nav { padding: 16px 24px; }
+  nav.scrolled { padding: 12px 24px; }
+  .nav-links { display: none; }
+  .nav-right { gap: 0; }
+}
+
+@media (max-width: 700px) {
+  .why-grid { grid-template-columns: 1fr; }
+  .cta-band { margin: 0 16px 80px; padding: 50px 24px; }
+  footer { padding: 24px 24px; flex-direction: column; text-align: center; }
+  .campaign-row {
+    grid-template-columns: 36px 1fr;
+    grid-template-rows: auto auto;
+  }
+  .campaign-status { grid-column: 2; }
+  .campaign-desc { white-space: normal; }
+  section { padding: 70px 24px; }
+}
+```
+
+**Step 2: Verify in browser**
+
+Resize browser to mobile width. Hero should stack vertically (panel below text). Campaign rows should wrap gracefully. Nav links hidden on mobile.
+
+**Step 3: Commit**
+```bash
+git add index.html
+git commit -m "redesign: mobile responsive layout"
+```
+
+---
+
+## Task 10: Stats CSS Cleanup + Scroll-Reveal Polish
+
+**Files:**
+- Modify: `index.html` — remove old stats CSS, confirm scroll-reveal still works
+
+**Step 1: Remove the old stats CSS**
+
+Find `/* ── Stats strip ── */` and delete the entire block (`.stats`, `.stat`, `.stat-num`, `.stat-label`). These stats are now in the performance panel.
+
+**Step 2: Verify scroll-reveal still fires**
+
+Open in browser, scroll down slowly. The section labels, headings, campaign rows, and why-me cards should fade up into view. If nothing reveals, check that `.reveal` and `.reveal-stagger` classes are still present on the HTML elements.
+
+**Step 3: Remove `hero-ring` HTML if still present**
+
+Search for `<div class="hero-ring">` and delete it if it still exists (the CSS already hides it, but clean it up).
+
+**Step 4: Final full-page browser check**
+
+Walk through the full page:
+- [ ] Nav: black, `AG_` blink, green available dot
+- [ ] Hero: split layout, performance panel with green stats
+- [ ] Marquee: green ticker with `▲` arrows
+- [ ] Services: dark table with 6 campaign rows, green badges
+- [ ] Why Me: 2-col grid with `✓ VERIFIED` badges
+- [ ] CTA: `$ aviel --start-project` prompt, green top line
+- [ ] Footer: `SYSTEM STATUS: ONLINE` with pulsing dot
+
+**Step 5: Commit**
+```bash
+git add index.html
+git commit -m "redesign: cleanup, remove old stats CSS, final polish"
+```
+
+---
+
+## Summary of Changes
+
+| Section | Before | After |
+|---|---|---|
+| Background | Navy + floating orange orbs | Near-black + dot-grid |
+| Fonts | Inter only | Syne (display) + JetBrains Mono (data) + Inter (body) |
+| Palette | Navy/orange/navy | Black/green/orange/blue |
+| Hero | Centered text + ring decoration | Split layout + live performance panel |
+| Stats | Horizontal strip below hero | Inside performance panel |
+| Marquee | Orange dots between items | Stock ticker `▲ Service` format |
+| Services | 6 hover cards in grid | 6 campaign rows in dark table |
+| Why Me | Icon + text cards | Dashboard audit findings with badges |
+| CTA | Gradient glow band | Terminal prompt on dark card |
+| Footer | Name + social links + copyright | System status + social + copyright |
