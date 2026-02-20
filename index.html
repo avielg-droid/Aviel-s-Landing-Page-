@@ -22,9 +22,7 @@
       --mono: 'JetBrains Mono', monospace;
       --sans: 'Inter', sans-serif;
       --display: 'Syne', sans-serif;
-      --accent: var(--orange);
-      --accent2: var(--orange);
-    }
+}
 
     html { scroll-behavior: smooth; }
 
@@ -342,9 +340,6 @@
       border-radius: 50%;
       background: var(--green);
     }
-
-    /* Hero ring — remove */
-    .hero-ring { display: none; }
 
     /* ── Marquee strip ── */
     .marquee-wrap {
@@ -669,13 +664,32 @@
     .reveal-stagger.visible > *:nth-child(6) { opacity:1; transform:none; transition-delay:.44s; }
 
     /* ── Responsive ── */
-    @media (max-width: 700px) {
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 100px 28px 60px;
+        gap: 48px;
+        text-align: center;
+      }
+      .hero-left { display: flex; flex-direction: column; align-items: center; }
+      .hero-sub { text-align: center; }
+      .hero-cta { justify-content: center; }
       nav { padding: 16px 24px; }
       nav.scrolled { padding: 12px 24px; }
       .nav-links { display: none; }
+      .nav-right { gap: 0; }
+    }
+
+    @media (max-width: 700px) {
       .why-grid { grid-template-columns: 1fr; }
-      .cta-band { margin: 0 20px 80px; padding: 50px 28px; }
+      .cta-band { margin: 0 16px 80px; padding: 50px 24px; }
       footer { padding: 24px 24px; flex-direction: column; text-align: center; }
+      .campaign-row {
+        grid-template-columns: 36px 1fr;
+        grid-template-rows: auto auto;
+      }
+      .campaign-status { grid-column: 2; }
+      section { padding: 70px 24px; }
     }
   </style>
 </head>
@@ -919,10 +933,6 @@
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          // trigger stat counters when stats become visible
-          if (entry.target.classList.contains('reveal')) {
-            entry.target.querySelectorAll('.stat-num[data-target]').forEach(animateCounter);
-          }
           observer.unobserve(entry.target);
         }
       });
