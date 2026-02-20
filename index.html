@@ -341,7 +341,30 @@
       background: var(--green);
     }
 
-    /* ── Marquee strip ── */
+    /* ── Typewriter ── */
+.typewriter-wrap {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-bottom: 20px;
+  min-height: 1.5rem;
+  animation: fadeUp .5s .15s ease both;
+}
+.typewriter-text {
+  font-family: var(--mono);
+  font-size: .9rem;
+  color: var(--green);
+  letter-spacing: .04em;
+}
+.typewriter-cursor {
+  font-family: var(--mono);
+  font-size: .9rem;
+  color: var(--green);
+  animation: blink 1.1s step-end infinite;
+  margin-left: 1px;
+}
+
+/* ── Marquee strip ── */
     .marquee-wrap {
       position: relative;
       z-index: 1;
@@ -717,6 +740,9 @@
     <div class="hero-left">
       <div class="hero-eyebrow">01 / Amazon Specialist</div>
       <h1>The Amazon<br>Operator That<br><span class="highlight">Moves Numbers</span></h1>
+      <div class="typewriter-wrap">
+        <span class="typewriter-text" id="typewriter"></span><span class="typewriter-cursor">|</span>
+      </div>
       <p class="hero-sub">
         Helping brands and entrepreneurs scale on Amazon — from listing optimization
         to full-funnel growth. Data-driven. Results-obsessed.
@@ -961,6 +987,43 @@
       }
       requestAnimationFrame(step);
     }
+
+    // ── Typewriter ──
+    const twEl = document.getElementById('typewriter');
+    const twPhrases = [
+      'Turn listings into revenue machines.',
+      'Page one or bust — every single launch.',
+      'PPC that pays for itself.',
+      'Your brand. Amazon\'s algorithm. My strategy.',
+      'Data beats guesswork. Results beat promises.',
+      'From zero to best-seller, one move at a time.',
+      'Dominate search. Convert browsers. Scale fast.',
+      'More reviews. Lower ACoS. Higher profit.',
+    ];
+    let twIndex = 0, twChar = 0, twDeleting = false;
+
+    function typewriter() {
+      const phrase = twPhrases[twIndex];
+      if (!twDeleting) {
+        twEl.textContent = phrase.slice(0, ++twChar);
+        if (twChar === phrase.length) {
+          twDeleting = true;
+          setTimeout(typewriter, 2200);
+          return;
+        }
+        setTimeout(typewriter, 55);
+      } else {
+        twEl.textContent = phrase.slice(0, --twChar);
+        if (twChar === 0) {
+          twDeleting = false;
+          twIndex = (twIndex + 1) % twPhrases.length;
+          setTimeout(typewriter, 400);
+          return;
+        }
+        setTimeout(typewriter, 28);
+      }
+    }
+    setTimeout(typewriter, 1000);
   </script>
 </body>
 </html>
