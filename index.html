@@ -124,153 +124,227 @@
       position: relative;
       z-index: 1;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: 55fr 45fr;
       align-items: center;
-      text-align: center;
-      padding: 120px 40px 80px;
+      padding: 120px 60px 80px;
+      gap: 60px;
+      max-width: 1400px;
+      margin: 0 auto;
     }
 
-    /* decorative ring behind heading */
-    .hero-ring {
-      position: absolute;
-      width: 600px; height: 600px;
-      border-radius: 50%;
-      border: 1px solid rgba(255,153,0,.07);
-      top: 50%; left: 50%;
-      transform: translate(-50%,-50%);
-      animation: ringPulse 6s ease-in-out infinite;
-      pointer-events: none;
-    }
-    .hero-ring::before {
+    /* Dot-grid background */
+    .hero::before {
       content: '';
-      position: absolute;
-      inset: 40px;
-      border-radius: 50%;
-      border: 1px solid rgba(255,153,0,.05);
-    }
-    @keyframes ringPulse {
-      0%,100% { transform: translate(-50%,-50%) scale(1); opacity: .6; }
-      50%      { transform: translate(-50%,-50%) scale(1.05); opacity: 1; }
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle, #222 1px, transparent 1px);
+      background-size: 32px 32px;
+      opacity: .4;
+      pointer-events: none;
+      z-index: 0;
     }
 
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255,153,0,.1);
-      border: 1px solid rgba(255,153,0,.25);
-      color: var(--accent);
-      font-size: .78rem;
-      font-weight: 600;
-      letter-spacing: .08em;
+    .hero-left {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: .75rem;
+      color: var(--green);
+      letter-spacing: .12em;
       text-transform: uppercase;
-      padding: 7px 16px;
-      border-radius: 100px;
-      margin-bottom: 28px;
-      animation: fadeUp .6s ease both, float 5s ease-in-out 1.5s infinite;
-    }
-
-    .badge-dot {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 10px var(--accent);
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%,100% { opacity: 1; transform: scale(1); }
-      50%      { opacity: .5; transform: scale(.85); }
-    }
-
-    @keyframes float {
-      0%,100% { transform: translateY(0); }
-      50%      { transform: translateY(-8px); }
+      margin-bottom: 20px;
+      animation: fadeUp .5s ease both;
     }
 
     h1 {
-      font-size: clamp(2.8rem, 6vw, 5.5rem);
+      font-family: var(--display);
+      font-size: clamp(2.6rem, 5vw, 5rem);
       font-weight: 800;
       line-height: 1.05;
       letter-spacing: -2px;
       margin-bottom: 24px;
-      animation: fadeUp .6s .1s ease both;
+      animation: fadeUp .5s .1s ease both;
     }
 
-    h1 span {
-      background: linear-gradient(135deg, #ffcc44 0%, #ff9900 40%, #ff6b00 100%);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradientShift 4s ease-in-out infinite;
-    }
-
-    @keyframes gradientShift {
-      0%,100% { background-position: 0% center; }
-      50%      { background-position: 100% center; }
+    h1 .highlight {
+      color: var(--green);
     }
 
     .hero-sub {
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       color: var(--muted);
-      max-width: 520px;
-      line-height: 1.7;
+      max-width: 460px;
+      line-height: 1.75;
       margin-bottom: 44px;
       font-weight: 400;
-      animation: fadeUp .6s .2s ease both;
+      animation: fadeUp .5s .2s ease both;
     }
 
     .hero-cta {
       display: flex;
-      gap: 16px;
+      gap: 14px;
       flex-wrap: wrap;
-      justify-content: center;
-      animation: fadeUp .6s .3s ease both;
+      animation: fadeUp .5s .3s ease both;
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 14px 30px;
-      border-radius: 12px;
-      font-size: .95rem;
+      padding: 13px 26px;
+      border-radius: 8px;
+      font-size: .88rem;
       font-weight: 600;
       text-decoration: none;
       cursor: pointer;
       border: none;
-      transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s;
+      transition: transform .2s, box-shadow .2s, background .2s;
+      font-family: var(--mono);
+      letter-spacing: .04em;
     }
-    .btn:hover { transform: translateY(-4px) scale(1.04); }
-    .btn:active { transform: translateY(-1px) scale(.99); }
+    .btn:hover { transform: translateY(-3px); }
+    .btn:active { transform: translateY(-1px); }
 
     .btn-primary {
-      background: linear-gradient(135deg, #ffcc44, #ff9900, #ff6b00);
-      background-size: 200% auto;
+      background: var(--green);
       color: #000;
-      box-shadow: 0 8px 30px rgba(255,153,0,.4);
-      transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s, background-position .4s;
+      box-shadow: 0 6px 24px rgba(0,255,135,.25);
     }
-    .btn-primary:hover {
-      box-shadow: 0 14px 40px rgba(255,153,0,.55);
-      background-position: right center;
-    }
+    .btn-primary:hover { box-shadow: 0 12px 36px rgba(0,255,135,.4); }
 
     .btn-secondary {
-      background: rgba(255,255,255,.04);
+      background: transparent;
       color: var(--text);
       border: 1px solid var(--border);
-      backdrop-filter: blur(10px);
     }
-    .btn-secondary:hover { background: rgba(255,255,255,.08); border-color: rgba(255,153,0,.3); }
+    .btn-secondary:hover { border-color: var(--green); color: var(--green); }
 
-    .btn-linkedin { background: #0a66c2; color: #fff; box-shadow: 0 8px 30px rgba(10,102,194,.3); }
-    .btn-linkedin:hover { box-shadow: 0 14px 40px rgba(10,102,194,.5); }
+    .btn-linkedin { background: #0a66c2; color: #fff; }
+    .btn-whatsapp { background: #25d366; color: #fff; }
 
-    .btn-whatsapp { background: #25d366; color: #fff; box-shadow: 0 8px 30px rgba(37,211,102,.3); }
-    .btn-whatsapp:hover { box-shadow: 0 14px 40px rgba(37,211,102,.5); }
+    /* Performance panel */
+    .hero-right {
+      position: relative;
+      z-index: 1;
+      animation: fadeUp .5s .2s ease both;
+    }
+
+    .perf-panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .perf-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .perf-panel-title {
+      font-family: var(--mono);
+      font-size: .72rem;
+      color: var(--muted);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .perf-live {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--mono);
+      font-size: .7rem;
+      color: var(--green);
+      letter-spacing: .08em;
+    }
+    .perf-live-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: statusPulse 1.8s ease-in-out infinite;
+    }
+
+    .perf-stats {
+      padding: 8px 0;
+    }
+
+    .perf-stat-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      transition: background .2s;
+    }
+    .perf-stat-row:last-child { border-bottom: none; }
+    .perf-stat-row:hover { background: rgba(255,255,255,.02); }
+
+    .perf-stat-label {
+      font-family: var(--mono);
+      font-size: .72rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .perf-stat-value {
+      font-family: var(--mono);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--green);
+      line-height: 1;
+    }
+
+    .perf-stat-badge {
+      font-family: var(--mono);
+      font-size: .65rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(0,255,135,.1);
+      color: var(--green);
+      border: 1px solid rgba(0,255,135,.2);
+      letter-spacing: .06em;
+    }
+
+    .perf-panel-footer {
+      padding: 12px 20px;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .perf-tag {
+      font-family: var(--mono);
+      font-size: .65rem;
+      padding: 4px 10px;
+      border-radius: 4px;
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+      border: 1px solid var(--border);
+      letter-spacing: .06em;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .perf-tag-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    /* Hero ring — remove */
+    .hero-ring { display: none; }
 
     /* ── Marquee strip ── */
     .marquee-wrap {
@@ -306,50 +380,6 @@
     @keyframes marquee {
       from { transform: translateX(0); }
       to   { transform: translateX(-50%); }
-    }
-
-    /* ── Stats strip ── */
-    .stats {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      justify-content: center;
-      gap: 0;
-      flex-wrap: wrap;
-      margin: 0 auto;
-      max-width: 860px;
-      padding: 0 40px 100px;
-    }
-
-    .stat {
-      flex: 1;
-      min-width: 160px;
-      text-align: center;
-      padding: 40px 24px;
-      border-right: 1px solid var(--border);
-      transition: background .3s;
-      border-radius: 8px;
-    }
-    .stat:last-child { border-right: none; }
-    .stat:hover { background: rgba(255,153,0,.04); }
-
-    .stat-num {
-      font-size: 2.6rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #ffcc44, #ff9900, #ff6b00);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      line-height: 1;
-      margin-bottom: 8px;
-      display: block;
-    }
-
-    .stat-label {
-      font-size: .8rem;
-      color: var(--muted);
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: .08em;
     }
 
     /* ── Section common ── */
@@ -649,11 +679,8 @@
       nav.scrolled { padding: 12px 24px; }
       .nav-links { display: none; }
       .why-grid { grid-template-columns: 1fr; }
-      .stat { border-right: none; border-bottom: 1px solid var(--border); }
-      .stat:last-child { border-bottom: none; }
       .cta-band { margin: 0 20px 80px; padding: 50px 28px; }
       footer { padding: 24px 24px; flex-direction: column; text-align: center; }
-      .hero-ring { width: 320px; height: 320px; }
     }
   </style>
 </head>
@@ -677,23 +704,58 @@
 
   <!-- Hero -->
   <div class="hero">
-    <div class="hero-ring"></div>
-    <div class="badge">
-      <span class="badge-dot"></span>
-      Available for new clients
+    <!-- Left: Editorial content -->
+    <div class="hero-left">
+      <div class="hero-eyebrow">01 / Amazon Specialist</div>
+      <h1>The Amazon<br>Operator That<br><span class="highlight">Moves Numbers</span></h1>
+      <p class="hero-sub">
+        Helping brands and entrepreneurs scale on Amazon — from listing optimization
+        to full-funnel growth. Data-driven. Results-obsessed.
+      </p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-primary">&gt; start_project</a>
+        <a href="#services" class="btn btn-secondary">&gt; view_services</a>
+      </div>
     </div>
-    <h1>Hi, I'm <span>Aviel Gendler</span></h1>
-    <p class="hero-sub">
-      Amazon Seller Specialist helping brands and entrepreneurs scale their
-      businesses, optimize listings, and dominate the marketplace.
-    </p>
-    <div class="hero-cta">
-      <a href="#contact" class="btn btn-primary">
-        &#9889; Let's Work Together
-      </a>
-      <a href="#services" class="btn btn-secondary">
-        &#128196; View Services
-      </a>
+
+    <!-- Right: Performance Panel -->
+    <div class="hero-right">
+      <div class="perf-panel">
+        <div class="perf-panel-header">
+          <span class="perf-panel-title">Client Portfolio</span>
+          <span class="perf-live"><span class="perf-live-dot"></span>Live</span>
+        </div>
+        <div class="perf-stats">
+          <div class="perf-stat-row">
+            <span class="perf-stat-label">Brands Scaled</span>
+            <span class="perf-stat-value" data-target="150" data-suffix="+">150+</span>
+            <span class="perf-stat-badge">&#9650; ACTIVE</span>
+          </div>
+          <div class="perf-stat-row">
+            <span class="perf-stat-label">Revenue Generated</span>
+            <span class="perf-stat-value" data-target="10" data-prefix="$" data-suffix="M+">$10M+</span>
+            <span class="perf-stat-badge">&#9650; TRACKED</span>
+          </div>
+          <div class="perf-stat-row">
+            <span class="perf-stat-label">Client Satisfaction</span>
+            <span class="perf-stat-value" data-target="98" data-suffix="%">98%</span>
+            <span class="perf-stat-badge">&#9679; VERIFIED</span>
+          </div>
+          <div class="perf-stat-row">
+            <span class="perf-stat-label">Years Experience</span>
+            <span class="perf-stat-value" data-target="7" data-suffix="+">7+</span>
+            <span class="perf-stat-badge">&#9679; EXPERT</span>
+          </div>
+        </div>
+        <div class="perf-panel-footer">
+          <span class="perf-tag"><span class="perf-tag-dot"></span>LISTING</span>
+          <span class="perf-tag"><span class="perf-tag-dot"></span>PPC</span>
+          <span class="perf-tag"><span class="perf-tag-dot"></span>LAUNCH</span>
+          <span class="perf-tag"><span class="perf-tag-dot"></span>ANALYTICS</span>
+          <span class="perf-tag"><span class="perf-tag-dot"></span>BRAND</span>
+          <span class="perf-tag"><span class="perf-tag-dot"></span>FBA</span>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -717,26 +779,6 @@
       <span>FBA / FBM Strategy</span><span class="dot">✦</span>
       <span>A+ Content</span><span class="dot">✦</span>
       <span>Revenue Growth</span><span class="dot">✦</span>
-    </div>
-  </div>
-
-  <!-- Stats -->
-  <div class="stats reveal">
-    <div class="stat">
-      <span class="stat-num" data-target="150" data-suffix="+">150+</span>
-      <div class="stat-label">Brands Scaled</div>
-    </div>
-    <div class="stat">
-      <span class="stat-num" data-target="10" data-prefix="$" data-suffix="M+">$10M+</span>
-      <div class="stat-label">Revenue Generated</div>
-    </div>
-    <div class="stat">
-      <span class="stat-num" data-target="98" data-suffix="%">98%</span>
-      <div class="stat-label">Client Satisfaction</div>
-    </div>
-    <div class="stat">
-      <span class="stat-num" data-target="7" data-suffix="+">7+</span>
-      <div class="stat-label">Years Experience</div>
     </div>
   </div>
 
@@ -897,6 +939,9 @@
     }, { threshold: 0.15 });
 
     document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => observer.observe(el));
+
+    // Animate perf panel counters on page load (hero is immediately visible)
+    document.querySelectorAll('.perf-stat-value[data-target]').forEach(animateCounter);
 
     // ── Animated stat counters ──
     function animateCounter(el) {
