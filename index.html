@@ -679,6 +679,74 @@
     .social-links .s-linkedin { background: #0a66c2; color: #fff; }
     .social-links .s-whatsapp { background: #25d366; color: #fff; }
 
+    /* ── Logo Carousel ── */
+    .clients-section {
+      position: relative;
+      z-index: 1;
+      padding: 64px 0 56px;
+      text-align: center;
+    }
+    .clients-label {
+      font-family: var(--sans);
+      font-size: .78rem;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 36px;
+    }
+    .logo-carousel-wrap {
+      overflow: hidden;
+      position: relative;
+    }
+    .logo-carousel-wrap::before,
+    .logo-carousel-wrap::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 120px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .logo-carousel-wrap::before {
+      left: 0;
+      background: linear-gradient(to right, var(--bg), transparent);
+    }
+    .logo-carousel-wrap::after {
+      right: 0;
+      background: linear-gradient(to left, var(--bg), transparent);
+    }
+    .logo-track {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      animation: logoScroll 30s linear infinite;
+      width: max-content;
+    }
+    .logo-track:hover { animation-play-state: paused; }
+    .logo-item {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 52px;
+      flex-shrink: 0;
+    }
+    .logo-item img {
+      height: 52px;
+      width: auto;
+      max-width: 160px;
+      object-fit: contain;
+      filter: grayscale(100%) opacity(0.45);
+      transition: filter .35s ease;
+    }
+    .logo-item img:hover {
+      filter: grayscale(0%) opacity(1);
+    }
+    @keyframes logoScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
     /* ── Core animations ── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(28px); }
@@ -867,6 +935,31 @@
       <span class="up">&#9650; FBA / FBM Strategy</span><span class="sep">|</span>
       <span class="up">&#9650; A+ Content</span><span class="sep">|</span>
       <span class="up">&#9650; Revenue Growth</span><span class="sep">|</span>
+    </div>
+  </div>
+
+  <!-- Logo Carousel -->
+  <div class="clients-section reveal">
+    <div class="clients-label">Brands I've Worked With</div>
+    <div class="logo-carousel-wrap">
+      <div class="logo-track">
+        <!-- set 1 -->
+        <div class="logo-item"><img src="logos/ARTORI-DESIGN-LOGO-PNG.png" alt="Artori Design" /></div>
+        <div class="logo-item"><img src="logos/BagMate_logo_RGB.png" alt="BagMate" /></div>
+        <div class="logo-item"><img src="logos/HIPSTORY-LOGO-28.2_b4f1f5b1-87bc-492e-95c4-e3dcc6f38676_x90.webp" alt="Hipstory" /></div>
+        <div class="logo-item"><img src="logos/JEAN_RACHEL_JEWELRY_logo.jpeg" alt="Jean Rachel Jewelry" /></div>
+        <div class="logo-item"><img src="logos/Yankee logo main (1).png" alt="Yankee" /></div>
+        <div class="logo-item"><img src="logos/logo df.jpeg" alt="DF" /></div>
+        <div class="logo-item"><img src="logos/peleglogo.41ea90 (1).png" alt="Peleg Design" /></div>
+        <!-- set 2 — duplicate for seamless loop -->
+        <div class="logo-item"><img src="logos/ARTORI-DESIGN-LOGO-PNG.png" alt="Artori Design" /></div>
+        <div class="logo-item"><img src="logos/BagMate_logo_RGB.png" alt="BagMate" /></div>
+        <div class="logo-item"><img src="logos/HIPSTORY-LOGO-28.2_b4f1f5b1-87bc-492e-95c4-e3dcc6f38676_x90.webp" alt="Hipstory" /></div>
+        <div class="logo-item"><img src="logos/JEAN_RACHEL_JEWELRY_logo.jpeg" alt="Jean Rachel Jewelry" /></div>
+        <div class="logo-item"><img src="logos/Yankee logo main (1).png" alt="Yankee" /></div>
+        <div class="logo-item"><img src="logos/logo df.jpeg" alt="DF" /></div>
+        <div class="logo-item"><img src="logos/peleglogo.41ea90 (1).png" alt="Peleg Design" /></div>
+      </div>
     </div>
   </div>
 
