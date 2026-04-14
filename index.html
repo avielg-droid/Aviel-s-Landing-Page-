@@ -4,24 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Aviel Gendler — Amazon Seller Specialist</title>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400&family=Roboto+Flex:opsz,wght@8..144,300;8..144,400;8..144,500;8..144,600;8..144,700;8..144,800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0a0a0a;
-      --surface: #111111;
-      --card: #161616;
-      --border: #222222;
-      --green: #00ff87;
-      --orange: #ff9900;
-      --blue: #00d4ff;
-      --text: #f5f5f5;
-      --muted: #666666;
+      --bg: #FFFFFF;
+      --surface: #F5F3FF;
+      --card: #FAF9FF;
+      --border: #DDD9FF;
+      --green: #4F46E5;
+      --orange: #EC4899;
+      --blue: #10B981;
+      --text: #1E1B4B;
+      --muted: #6B7280;
       --radius: 12px;
       --mono: 'JetBrains Mono', monospace;
-      --sans: 'Inter', sans-serif;
-      --display: 'Syne', sans-serif;
+      --sans: 'Roboto Flex', sans-serif;
+      --display: 'Fraunces', serif;
 }
 
     html { scroll-behavior: smooth; }
@@ -43,7 +43,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 20px 60px;
-      background: rgba(10,10,10,.85);
+      background: rgba(255,255,255,.88);
       border-bottom: 1px solid var(--border);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
@@ -51,7 +51,7 @@
     }
     nav.scrolled {
       padding: 14px 60px;
-      background: rgba(10,10,10,.96);
+      background: rgba(255,255,255,.98);
     }
 
     .nav-logo {
@@ -136,7 +136,7 @@
       content: '';
       position: fixed;
       inset: 0;
-      background-image: radial-gradient(circle, #222 1px, transparent 1px);
+      background-image: radial-gradient(circle, #C7D2FE 1px, transparent 1px);
       background-size: 32px 32px;
       opacity: .4;
       pointer-events: none;
@@ -209,10 +209,10 @@
 
     .btn-primary {
       background: var(--green);
-      color: #000;
-      box-shadow: 0 6px 24px rgba(0,255,135,.25);
+      color: #fff;
+      box-shadow: 0 6px 24px rgba(79,70,229,.25);
     }
-    .btn-primary:hover { box-shadow: 0 12px 36px rgba(0,255,135,.4); }
+    .btn-primary:hover { box-shadow: 0 12px 36px rgba(79,70,229,.4); }
 
     .btn-secondary {
       background: transparent;
@@ -284,7 +284,7 @@
       transition: background .2s;
     }
     .perf-stat-row:last-child { border-bottom: none; }
-    .perf-stat-row:hover { background: rgba(255,255,255,.02); }
+    .perf-stat-row:hover { background: rgba(79,70,229,.04); }
 
     .perf-stat-label {
       font-family: var(--mono);
@@ -307,9 +307,9 @@
       font-size: .65rem;
       padding: 3px 8px;
       border-radius: 4px;
-      background: rgba(0,255,135,.1);
+      background: rgba(79,70,229,.1);
       color: var(--green);
-      border: 1px solid rgba(0,255,135,.2);
+      border: 1px solid rgba(79,70,229,.2);
       letter-spacing: .06em;
     }
 
@@ -327,7 +327,7 @@
       font-size: .65rem;
       padding: 4px 10px;
       border-radius: 4px;
-      background: rgba(255,255,255,.04);
+      background: rgba(79,70,229,.06);
       color: var(--muted);
       border: 1px solid var(--border);
       letter-spacing: .06em;
@@ -361,7 +361,7 @@
   position: absolute;
   inset: -5px;
   border-radius: 50%;
-  border: 1px solid rgba(0,255,135,.2);
+  border: 1px solid rgba(79,70,229,.25);
   animation: ringPulse 3s ease-in-out infinite;
 }
 @keyframes ringPulse {
@@ -497,7 +497,7 @@
     }
     .campaign-row:last-child { border-bottom: none; }
     .campaign-row:hover {
-      background: rgba(0,255,135,.03);
+      background: rgba(79,70,229,.05);
       border-left-color: var(--green);
     }
 
@@ -529,9 +529,9 @@
       font-size: .68rem;
       padding: 4px 10px;
       border-radius: 4px;
-      background: rgba(0,255,135,.08);
+      background: rgba(79,70,229,.08);
       color: var(--green);
-      border: 1px solid rgba(0,255,135,.18);
+      border: 1px solid rgba(79,70,229,.18);
       letter-spacing: .08em;
       white-space: nowrap;
       display: flex;
@@ -561,17 +561,17 @@
       border-left: 3px solid transparent;
     }
     .why-item:hover {
-      border-color: rgba(0,255,135,.3);
+      border-color: rgba(79,70,229,.3);
       border-left-color: var(--green);
-      box-shadow: 0 8px 32px rgba(0,0,0,.3);
+      box-shadow: 0 8px 32px rgba(79,70,229,.12);
     }
 
     .why-check {
       font-family: var(--mono);
       font-size: .68rem;
       color: var(--green);
-      background: rgba(0,255,135,.08);
-      border: 1px solid rgba(0,255,135,.18);
+      background: rgba(79,70,229,.08);
+      border: 1px solid rgba(79,70,229,.18);
       padding: 3px 8px;
       border-radius: 4px;
       display: inline-block;
