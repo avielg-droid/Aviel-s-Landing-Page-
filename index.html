@@ -144,6 +144,7 @@
       50% { opacity: .6; box-shadow: 0 0 4px var(--green); }
     }
 
+    .nav-hamburger { display: none; background: none; border: none; }
     .nav-links { display: flex; gap: 32px; }
     .nav-links a {
       color: var(--muted);
@@ -880,6 +881,23 @@
       nav { padding: 16px 24px; }
       nav.scrolled { padding: 12px 24px; }
       .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 57px; left: 0; right: 0;
+        background: rgba(255,255,255,.98);
+        border-bottom: 1px solid var(--border);
+        padding: 20px 24px 24px;
+        gap: 20px;
+        z-index: 99;
+      }
+      .nav-links.open a { font-size: .9rem; letter-spacing: .04em; }
+      .nav-hamburger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+      .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: transform .25s, opacity .25s; }
+      .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+      .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+      .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
       .nav-right { gap: 0; }
 
       /* Performance panel — mobile */
@@ -937,11 +955,14 @@
         <div class="nav-status-dot"></div>
         Available
       </div>
-      <div class="nav-links">
-        <a href="#services">Services</a>
-        <a href="#why">Why Me</a>
+      <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links" id="navLinks">
+        <a href="#services" onclick="closeNav()">Services</a>
+        <a href="#why" onclick="closeNav()">Why Me</a>
         <a href="/blog/">Blog</a>
-        <a href="#contact">Contact</a>
+        <a href="#contact" onclick="closeNav()">Contact</a>
       </div>
     </div>
   </nav>
@@ -1485,6 +1506,18 @@
       'From positioning to performance — end to end.',
       'Built 30+ brands. Ready to build yours.',
     ], 1200);
+
+  // Hamburger menu
+  const hamburger = document.getElementById('navHamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+  });
+  function closeNav() {
+    hamburger.classList.remove('open');
+    navLinks.classList.remove('open');
+  }
   </script>
 </body>
 </html>

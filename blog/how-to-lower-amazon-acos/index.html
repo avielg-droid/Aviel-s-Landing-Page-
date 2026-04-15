@@ -100,6 +100,12 @@
       letter-spacing: 0;
     }
 
+    .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: transform .25s, opacity .25s; margin-bottom: 5px; }
+    .nav-hamburger span:last-child { margin-bottom: 0; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
     .nav-links {
       display: flex;
       gap: 32px;
@@ -512,7 +518,20 @@
     /* Responsive */
     @media (max-width: 768px) {
       nav { padding: 16px 24px; }
+      .nav-hamburger { display: flex; flex-direction: column; }
       .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 57px; left: 0; right: 0;
+        background: rgba(255,255,255,.98);
+        border-bottom: 1px solid var(--border);
+        padding: 20px 24px 24px;
+        gap: 20px;
+        z-index: 99;
+      }
+      .nav-links.open a { font-size: .9rem; }
       .article-wrap { padding: 100px 20px 60px; }
       .stat-row { grid-template-columns: 1fr 1fr; }
       .case-study-stats { grid-template-columns: 1fr; gap: 20px; }
@@ -526,7 +545,10 @@
   <!-- Nav -->
   <nav>
     <a href="/" class="nav-logo">avielg.com</a>
-    <div class="nav-links">
+    <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
       <a href="/#services">Services</a>
       <a href="/#why">Why Me</a>
       <a href="/blog/">Blog</a>
@@ -913,6 +935,14 @@
 
   </div>
 
+  <script>
+    const hamburger = document.getElementById('navHamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      navLinks.classList.toggle('open');
+    });
+  </script>
   <!-- Vercel Analytics -->
   <script defer src="/_vercel/insights/script.js"></script>
 
