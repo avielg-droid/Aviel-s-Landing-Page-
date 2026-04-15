@@ -756,6 +756,50 @@
       to   { transform: translateX(-50%); }
     }
 
+    /* ── Mode Switcher ── */
+    .mode-switcher {
+      display: inline-flex;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 4px;
+      gap: 2px;
+      margin-bottom: 28px;
+      animation: fadeUp .4s ease both;
+    }
+    .mode-btn {
+      font-family: var(--mono);
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 8px 20px;
+      border-radius: 100px;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background .25s, color .25s, box-shadow .25s;
+    }
+    .mode-btn.active {
+      background: var(--green);
+      color: #fff;
+      box-shadow: 0 2px 12px rgba(79,70,229,.3);
+    }
+    .mode-btn-marketer.active {
+      background: var(--orange);
+      box-shadow: 0 2px 12px rgba(236,72,153,.3);
+    }
+    .mode-btn:hover:not(.active) { color: var(--text); }
+
+    /* Mode visibility */
+    body[data-mode="amazon"] .mode-marketer { display: none !important; }
+    body[data-mode="marketer"] .mode-amazon { display: none !important; }
+
+    /* Mode fade transition */
+    .mode-fade { transition: opacity .2s ease; }
+    body.mode-switching .mode-fade { opacity: 0; }
+
     /* ── Core animations ── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(28px); }
@@ -844,7 +888,7 @@
   </style>
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
-<body>
+<body data-mode="amazon">
 
   <!-- Nav -->
   <nav id="nav">
@@ -870,15 +914,36 @@
         <img src="photo.jpeg" alt="Aviel Gendler" class="hero-photo" />
         <div class="hero-photo-ring"></div>
       </div>
-      <div class="hero-eyebrow">01 / Amazon Specialist</div>
-      <h1>The Amazon<br>Operator That<br><span class="highlight">Moves Numbers</span></h1>
-      <div class="typewriter-wrap">
-        <span class="typewriter-text" id="typewriter"></span><span class="typewriter-cursor">|</span>
+
+      <!-- Mode Switcher -->
+      <div class="mode-switcher">
+        <button class="mode-btn mode-btn-amazon active" onclick="setMode('amazon')">Amazon Growth</button>
+        <button class="mode-btn mode-btn-marketer" onclick="setMode('marketer')">Full-Stack Marketer</button>
       </div>
-      <p class="hero-sub">
-        Helping brands and entrepreneurs scale on Amazon — from listing optimization
-        to full-funnel growth. Data-driven. Results-obsessed.
-      </p>
+
+      <div class="mode-amazon mode-fade">
+        <div class="hero-eyebrow">01 / Amazon Specialist</div>
+        <h1>The Amazon<br>Operator That<br><span class="highlight">Moves Numbers</span></h1>
+        <div class="typewriter-wrap">
+          <span class="typewriter-text" id="typewriter-amazon"></span><span class="typewriter-cursor">|</span>
+        </div>
+        <p class="hero-sub">
+          Helping brands and entrepreneurs scale on Amazon — from listing optimization
+          to full-funnel growth. Data-driven. Results-obsessed.
+        </p>
+      </div>
+
+      <div class="mode-marketer mode-fade">
+        <div class="hero-eyebrow" style="color:var(--orange)">02 / Full-Stack Marketer</div>
+        <h1>The Marketer Who<br>Grows Brands —<br><span class="highlight" style="color:var(--orange)">Everywhere</span></h1>
+        <div class="typewriter-wrap">
+          <span class="typewriter-text" id="typewriter-marketer"></span><span class="typewriter-cursor" style="color:var(--orange)">|</span>
+        </div>
+        <p class="hero-sub">
+          Multi-channel digital strategy, agency leadership, and e-commerce growth
+          beyond Amazon. Brand-first. Data-driven. 10 years of results.
+        </p>
+      </div>
       <div class="hero-cta">
         <a href="#contact" class="btn btn-primary">Start a Project</a>
         <a href="#services" class="btn btn-secondary">View Services</a>
@@ -888,39 +953,80 @@
     <!-- Right: Performance Panel -->
     <div class="hero-right">
       <div class="perf-panel">
-        <div class="perf-panel-header">
-          <span class="perf-panel-title">Client Portfolio</span>
-          <span class="perf-live"><span class="perf-live-dot"></span>Live</span>
+        <!-- Amazon mode panel -->
+        <div class="mode-amazon mode-fade">
+          <div class="perf-panel-header">
+            <span class="perf-panel-title">Client Portfolio</span>
+            <span class="perf-live"><span class="perf-live-dot"></span>Live</span>
+          </div>
+          <div class="perf-stats">
+            <div class="perf-stat-row">
+              <span class="perf-stat-label">Brands Scaled</span>
+              <span class="perf-stat-value" data-target="30" data-suffix="+">30+</span>
+              <span class="perf-stat-badge">&#9650; ACTIVE</span>
+            </div>
+            <div class="perf-stat-row">
+              <span class="perf-stat-label">Revenue Generated</span>
+              <span class="perf-stat-value" data-target="25" data-prefix="$" data-suffix="M+">$25M+</span>
+              <span class="perf-stat-badge">&#9650; TRACKED</span>
+            </div>
+            <div class="perf-stat-row">
+              <span class="perf-stat-label">Client Satisfaction</span>
+              <span class="perf-stat-value" data-target="99" data-suffix="%">99%</span>
+              <span class="perf-stat-badge">&#9679; VERIFIED</span>
+            </div>
+            <div class="perf-stat-row">
+              <span class="perf-stat-label">Years Experience</span>
+              <span class="perf-stat-value" data-target="7" data-suffix="+">7+</span>
+              <span class="perf-stat-badge">&#9679; EXPERT</span>
+            </div>
+          </div>
+          <div class="perf-panel-footer">
+            <span class="perf-tag"><span class="perf-tag-dot"></span>CATALOG MGMT</span>
+            <span class="perf-tag"><span class="perf-tag-dot"></span>PPC</span>
+            <span class="perf-tag"><span class="perf-tag-dot"></span>SEO</span>
+            <span class="perf-tag"><span class="perf-tag-dot"></span>LAUNCH</span>
+            <span class="perf-tag"><span class="perf-tag-dot"></span>ANALYTICS</span>
+            <span class="perf-tag"><span class="perf-tag-dot"></span>BRAND</span>
+          </div>
         </div>
-        <div class="perf-stats">
-          <div class="perf-stat-row">
-            <span class="perf-stat-label">Brands Scaled</span>
-            <span class="perf-stat-value" data-target="30" data-suffix="+">30+</span>
-            <span class="perf-stat-badge">&#9650; ACTIVE</span>
+
+        <!-- Marketer mode panel -->
+        <div class="mode-marketer mode-fade">
+          <div class="perf-panel-header">
+            <span class="perf-panel-title">Marketing Track Record</span>
+            <span class="perf-live" style="color:var(--orange)"><span class="perf-live-dot" style="background:var(--orange)"></span>Live</span>
           </div>
-          <div class="perf-stat-row">
-            <span class="perf-stat-label">Revenue Generated</span>
-            <span class="perf-stat-value" data-target="25" data-prefix="$" data-suffix="M+">$25M+</span>
-            <span class="perf-stat-badge">&#9650; TRACKED</span>
+          <div class="perf-stats">
+            <div class="perf-stat-row">
+              <span class="perf-stat-label">Agency Clients</span>
+              <span class="perf-stat-value" style="color:var(--orange)" data-target="40" data-suffix="+" data-mode="marketer">40+</span>
+              <span class="perf-stat-badge" style="background:rgba(236,72,153,.1);color:var(--orange);border-color:rgba(236,72,153,.2)">&#9650; MANAGED</span>
+            </div>
+            <div class="perf-stat-row">
+              <span class="perf-stat-label">Ad Spend Managed</span>
+              <span class="perf-stat-value" style="color:var(--orange)" data-target="8" data-prefix="$" data-suffix="M+" data-mode="marketer">$8M+</span>
+              <span class="perf-stat-badge" style="background:rgba(236,72,153,.1);color:var(--orange);border-color:rgba(236,72,153,.2)">&#9650; TRACKED</span>
+            </div>
+            <div class="perf-stat-row">
+              <span class="perf-stat-label">Conversion Lift</span>
+              <span class="perf-stat-value" style="color:var(--orange)" data-target="20" data-suffix="%" data-mode="marketer">20%</span>
+              <span class="perf-stat-badge" style="background:rgba(236,72,153,.1);color:var(--orange);border-color:rgba(236,72,153,.2)">&#9679; MEASURED</span>
+            </div>
+            <div class="perf-stat-row">
+              <span class="perf-stat-label">Years Experience</span>
+              <span class="perf-stat-value" style="color:var(--orange)" data-target="10" data-suffix="+" data-mode="marketer">10+</span>
+              <span class="perf-stat-badge" style="background:rgba(236,72,153,.1);color:var(--orange);border-color:rgba(236,72,153,.2)">&#9679; EXPERT</span>
+            </div>
           </div>
-          <div class="perf-stat-row">
-            <span class="perf-stat-label">Client Satisfaction</span>
-            <span class="perf-stat-value" data-target="99" data-suffix="%">99%</span>
-            <span class="perf-stat-badge">&#9679; VERIFIED</span>
+          <div class="perf-panel-footer">
+            <span class="perf-tag"><span class="perf-tag-dot" style="background:var(--orange)"></span>MULTI-CHANNEL</span>
+            <span class="perf-tag"><span class="perf-tag-dot" style="background:var(--orange)"></span>BRAND STRATEGY</span>
+            <span class="perf-tag"><span class="perf-tag-dot" style="background:var(--orange)"></span>E-COMMERCE</span>
+            <span class="perf-tag"><span class="perf-tag-dot" style="background:var(--orange)"></span>CONTENT</span>
+            <span class="perf-tag"><span class="perf-tag-dot" style="background:var(--orange)"></span>TEAM LEAD</span>
+            <span class="perf-tag"><span class="perf-tag-dot" style="background:var(--orange)"></span>DATA-DRIVEN</span>
           </div>
-          <div class="perf-stat-row">
-            <span class="perf-stat-label">Years Experience</span>
-            <span class="perf-stat-value" data-target="7" data-suffix="+">7+</span>
-            <span class="perf-stat-badge">&#9679; EXPERT</span>
-          </div>
-        </div>
-        <div class="perf-panel-footer">
-          <span class="perf-tag"><span class="perf-tag-dot"></span>CATALOG MGMT</span>
-          <span class="perf-tag"><span class="perf-tag-dot"></span>PPC</span>
-          <span class="perf-tag"><span class="perf-tag-dot"></span>SEO</span>
-          <span class="perf-tag"><span class="perf-tag-dot"></span>LAUNCH</span>
-          <span class="perf-tag"><span class="perf-tag-dot"></span>ANALYTICS</span>
-          <span class="perf-tag"><span class="perf-tag-dot"></span>BRAND</span>
         </div>
       </div>
     </div>
@@ -928,7 +1034,7 @@
 
   <!-- Marquee -->
   <div class="marquee-wrap">
-    <div class="marquee-track">
+    <div class="marquee-track mode-amazon">
       <span class="up">&#9650; Listing Optimization</span><span class="sep">|</span>
       <span class="up">&#9650; PPC Management</span><span class="sep">|</span>
       <span class="up">&#9650; Product Launch</span><span class="sep">|</span>
@@ -945,6 +1051,24 @@
       <span class="up">&#9650; FBA / FBM Strategy</span><span class="sep">|</span>
       <span class="up">&#9650; A+ Content</span><span class="sep">|</span>
       <span class="up">&#9650; Revenue Growth</span><span class="sep">|</span>
+    </div>
+    <div class="marquee-track mode-marketer" style="color:var(--orange)">
+      <span class="up" style="color:var(--orange)">&#9650; Multi-Channel PPC</span><span class="sep">|</span>
+      <span class="up" style="color:var(--orange)">&#9650; Brand Strategy</span><span class="sep">|</span>
+      <span class="up" style="color:var(--orange)">&#9650; E-commerce Growth</span><span class="sep">|</span>
+      <span class="up" style="color:var(--orange)">&#9650; Digital Campaigns</span><span class="sep">|</span>
+      <span class="up" style="color:var(--orange)">&#9650; Content Direction</span><span class="sep">|</span>
+      <span class="up" style="color:var(--orange)">&#9650; Team Leadership</span><span class="sep">|</span>
+      <span class="up" style="color:var(--orange)">&#9650; A/B Testing</span><span class="sep">|</span>
+      <span class="up" style="color:var(--orange)">&#9650; Retention Growth</span><span class="sep">|</span>
+      <span class="up" style="color:var(--orange)">&#9650; Multi-Channel PPC</span><span class="sep">|</span>
+      <span class="up" style="color:var(--orange)">&#9650; Brand Strategy</span><span class="sep">|</span>
+      <span class="up" style="color:var(--orange)">&#9650; E-commerce Growth</span><span class="sep">|</span>
+      <span class="up" style="color:var(--orange)">&#9650; Digital Campaigns</span><span class="sep">|</span>
+      <span class="up" style="color:var(--orange)">&#9650; Content Direction</span><span class="sep">|</span>
+      <span class="up" style="color:var(--orange)">&#9650; Team Leadership</span><span class="sep">|</span>
+      <span class="up" style="color:var(--orange)">&#9650; A/B Testing</span><span class="sep">|</span>
+      <span class="up" style="color:var(--orange)">&#9650; Retention Growth</span><span class="sep">|</span>
     </div>
   </div>
 
@@ -983,92 +1107,191 @@
 
   <!-- Services -->
   <section id="services">
-    <div class="section-label reveal">What I Do</div>
-    <h2 class="section-title reveal">Full-Spectrum Amazon<br>Growth Services</h2>
-    <p class="section-sub reveal">
-      From product launch to scaling — every layer of your Amazon business
-      covered to maximize visibility and profitability.
-    </p>
-    <div class="services-table reveal-stagger">
-      <div class="campaign-row">
-        <span class="campaign-num">01</span>
-        <div class="campaign-info">
-          <div class="campaign-name">Listing Optimization</div>
-          <div class="campaign-desc">Keyword-rich titles, bullet points, and A+ Content crafted to convert browsers into buyers and boost organic ranking.</div>
+    <!-- Amazon mode -->
+    <div class="mode-amazon">
+      <div class="section-label reveal">What I Do</div>
+      <h2 class="section-title reveal">Full-Spectrum Amazon<br>Growth Services</h2>
+      <p class="section-sub reveal">
+        From product launch to scaling — every layer of your Amazon business
+        covered to maximize visibility and profitability.
+      </p>
+      <div class="services-table reveal-stagger">
+        <div class="campaign-row">
+          <span class="campaign-num">01</span>
+          <div class="campaign-info">
+            <div class="campaign-name">Listing Optimization</div>
+            <div class="campaign-desc">Keyword-rich titles, bullet points, and A+ Content crafted to convert browsers into buyers and boost organic ranking.</div>
+          </div>
+          <span class="campaign-status"><span class="campaign-status-dot"></span>ACTIVE</span>
         </div>
-        <span class="campaign-status"><span class="campaign-status-dot"></span>ACTIVE</span>
+        <div class="campaign-row">
+          <span class="campaign-num">02</span>
+          <div class="campaign-info">
+            <div class="campaign-name">PPC Campaign Management</div>
+            <div class="campaign-desc">Data-driven Sponsored Products, Brands, and Display campaigns that lower ACoS while scaling profitable ad spend.</div>
+          </div>
+          <span class="campaign-status"><span class="campaign-status-dot"></span>RUNNING</span>
+        </div>
+        <div class="campaign-row">
+          <span class="campaign-num">03</span>
+          <div class="campaign-info">
+            <div class="campaign-name">Product Launch Strategy</div>
+            <div class="campaign-desc">Proven launch playbooks to rank on page one fast — combining initial velocity, reviews, and targeted PPC.</div>
+          </div>
+          <span class="campaign-status"><span class="campaign-status-dot"></span>PAGE ONE</span>
+        </div>
+        <div class="campaign-row">
+          <span class="campaign-num">04</span>
+          <div class="campaign-info">
+            <div class="campaign-name">Analytics &amp; Reporting</div>
+            <div class="campaign-desc">In-depth performance reviews with clear, actionable insights so you always know what's working and where to invest next.</div>
+          </div>
+          <span class="campaign-status"><span class="campaign-status-dot"></span>TRACKING</span>
+        </div>
+        <div class="campaign-row">
+          <span class="campaign-num">05</span>
+          <div class="campaign-info">
+            <div class="campaign-name">Brand Registry &amp; Protection</div>
+            <div class="campaign-desc">Secure your brand, fight hijackers, and unlock premium Amazon tools like A+ Content, Storefronts, and Brand Analytics.</div>
+          </div>
+          <span class="campaign-status"><span class="campaign-status-dot"></span>SECURED</span>
+        </div>
+        <div class="campaign-row">
+          <span class="campaign-num">06</span>
+          <div class="campaign-info">
+            <div class="campaign-name">Inventory &amp; Logistics</div>
+            <div class="campaign-desc">FBA/FBM planning, reorder strategy, and supplier coordination to keep you in stock and avoid costly storage fees.</div>
+          </div>
+          <span class="campaign-status"><span class="campaign-status-dot"></span>OPTIMIZED</span>
+        </div>
       </div>
-      <div class="campaign-row">
-        <span class="campaign-num">02</span>
-        <div class="campaign-info">
-          <div class="campaign-name">PPC Campaign Management</div>
-          <div class="campaign-desc">Data-driven Sponsored Products, Brands, and Display campaigns that lower ACoS while scaling profitable ad spend.</div>
+    </div>
+
+    <!-- Marketer mode -->
+    <div class="mode-marketer">
+      <div class="section-label reveal" style="color:var(--orange)">What I Do</div>
+      <h2 class="section-title reveal">Full-Stack Marketing<br>Services</h2>
+      <p class="section-sub reveal">
+        From brand strategy to performance campaigns — every dimension of
+        digital marketing covered to grow your business across all channels.
+      </p>
+      <div class="services-table reveal-stagger">
+        <div class="campaign-row" style="--hover-color: var(--orange)">
+          <span class="campaign-num">01</span>
+          <div class="campaign-info">
+            <div class="campaign-name">Multi-Channel PPC</div>
+            <div class="campaign-desc">Performance campaigns across paid search and social — built to lower CPAs, scale spend profitably, and hit ROAS targets.</div>
+          </div>
+          <span class="campaign-status" style="background:rgba(236,72,153,.08);color:var(--orange);border-color:rgba(236,72,153,.18)"><span class="campaign-status-dot" style="background:var(--orange)"></span>RUNNING</span>
         </div>
-        <span class="campaign-status"><span class="campaign-status-dot"></span>RUNNING</span>
-      </div>
-      <div class="campaign-row">
-        <span class="campaign-num">03</span>
-        <div class="campaign-info">
-          <div class="campaign-name">Product Launch Strategy</div>
-          <div class="campaign-desc">Proven launch playbooks to rank on page one fast — combining initial velocity, reviews, and targeted PPC.</div>
+        <div class="campaign-row">
+          <span class="campaign-num">02</span>
+          <div class="campaign-info">
+            <div class="campaign-name">Brand Strategy &amp; Identity</div>
+            <div class="campaign-desc">Positioning, messaging, and visual identity that cut through noise — built on audience insight and competitive analysis.</div>
+          </div>
+          <span class="campaign-status" style="background:rgba(236,72,153,.08);color:var(--orange);border-color:rgba(236,72,153,.18)"><span class="campaign-status-dot" style="background:var(--orange)"></span>ACTIVE</span>
         </div>
-        <span class="campaign-status"><span class="campaign-status-dot"></span>PAGE ONE</span>
-      </div>
-      <div class="campaign-row">
-        <span class="campaign-num">04</span>
-        <div class="campaign-info">
-          <div class="campaign-name">Analytics &amp; Reporting</div>
-          <div class="campaign-desc">In-depth performance reviews with clear, actionable insights so you always know what's working and where to invest next.</div>
+        <div class="campaign-row">
+          <span class="campaign-num">03</span>
+          <div class="campaign-info">
+            <div class="campaign-name">E-commerce Growth</div>
+            <div class="campaign-desc">Full-funnel e-commerce strategy beyond Amazon — Shopify, marketplaces, and DTC channels optimized for conversion and retention.</div>
+          </div>
+          <span class="campaign-status" style="background:rgba(236,72,153,.08);color:var(--orange);border-color:rgba(236,72,153,.18)"><span class="campaign-status-dot" style="background:var(--orange)"></span>SCALING</span>
         </div>
-        <span class="campaign-status"><span class="campaign-status-dot"></span>TRACKING</span>
-      </div>
-      <div class="campaign-row">
-        <span class="campaign-num">05</span>
-        <div class="campaign-info">
-          <div class="campaign-name">Brand Registry &amp; Protection</div>
-          <div class="campaign-desc">Secure your brand, fight hijackers, and unlock premium Amazon tools like A+ Content, Storefronts, and Brand Analytics.</div>
+        <div class="campaign-row">
+          <span class="campaign-num">04</span>
+          <div class="campaign-info">
+            <div class="campaign-name">Marketing Team Leadership</div>
+            <div class="campaign-desc">Built and led 8-person teams across PPC, design, and content — from hiring to KPIs to cross-functional delivery.</div>
+          </div>
+          <span class="campaign-status" style="background:rgba(236,72,153,.08);color:var(--orange);border-color:rgba(236,72,153,.18)"><span class="campaign-status-dot" style="background:var(--orange)"></span>LEADING</span>
         </div>
-        <span class="campaign-status"><span class="campaign-status-dot"></span>SECURED</span>
-      </div>
-      <div class="campaign-row">
-        <span class="campaign-num">06</span>
-        <div class="campaign-info">
-          <div class="campaign-name">Inventory &amp; Logistics</div>
-          <div class="campaign-desc">FBA/FBM planning, reorder strategy, and supplier coordination to keep you in stock and avoid costly storage fees.</div>
+        <div class="campaign-row">
+          <span class="campaign-num">05</span>
+          <div class="campaign-info">
+            <div class="campaign-name">Content &amp; Creative Direction</div>
+            <div class="campaign-desc">Content strategy and creative briefs that align brand voice with performance goals — from ad copy to long-form storytelling.</div>
+          </div>
+          <span class="campaign-status" style="background:rgba(236,72,153,.08);color:var(--orange);border-color:rgba(236,72,153,.18)"><span class="campaign-status-dot" style="background:var(--orange)"></span>LIVE</span>
         </div>
-        <span class="campaign-status"><span class="campaign-status-dot"></span>OPTIMIZED</span>
+        <div class="campaign-row">
+          <span class="campaign-num">06</span>
+          <div class="campaign-info">
+            <div class="campaign-name">Data-Driven Campaigns &amp; A/B Testing</div>
+            <div class="campaign-desc">Continuous experimentation frameworks — A/B testing, behavioral analytics, and conversion optimization that compound over time.</div>
+          </div>
+          <span class="campaign-status" style="background:rgba(236,72,153,.08);color:var(--orange);border-color:rgba(236,72,153,.18)"><span class="campaign-status-dot" style="background:var(--orange)"></span>OPTIMIZED</span>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Why Me -->
   <section id="why">
-    <div class="section-label reveal">Why Choose Me</div>
-    <h2 class="section-title reveal">An Expert Who Treats<br>Your Business Like His Own</h2>
-    <p class="section-sub reveal">
-      No cookie-cutter strategies. Every client gets a tailored approach
-      built around their specific goals and marketplace reality.
-    </p>
-    <div class="why-grid reveal-stagger">
-      <div class="why-item">
-        <div class="why-check">&#10003; VERIFIED</div>
-        <div class="why-title">Results-First Mindset</div>
-        <div class="why-desc">Every decision is driven by data and ROI — no vanity metrics, just real growth that impacts your bottom line.</div>
+    <!-- Amazon mode -->
+    <div class="mode-amazon">
+      <div class="section-label reveal">Why Choose Me</div>
+      <h2 class="section-title reveal">An Expert Who Treats<br>Your Business Like His Own</h2>
+      <p class="section-sub reveal">
+        No cookie-cutter strategies. Every client gets a tailored approach
+        built around their specific goals and marketplace reality.
+      </p>
+      <div class="why-grid reveal-stagger">
+        <div class="why-item">
+          <div class="why-check">&#10003; VERIFIED</div>
+          <div class="why-title">Results-First Mindset</div>
+          <div class="why-desc">Every decision is driven by data and ROI — no vanity metrics, just real growth that impacts your bottom line.</div>
+        </div>
+        <div class="why-item">
+          <div class="why-check">&#10003; VERIFIED</div>
+          <div class="why-title">Deep Platform Expertise</div>
+          <div class="why-desc">Years of hands-on experience across dozens of categories, from private label to wholesale and beyond.</div>
+        </div>
+        <div class="why-item">
+          <div class="why-check">&#10003; VERIFIED</div>
+          <div class="why-title">Transparent Communication</div>
+          <div class="why-desc">Regular updates, honest reporting, and direct access to me — you'll always know exactly where things stand.</div>
+        </div>
+        <div class="why-item">
+          <div class="why-check">&#10003; VERIFIED</div>
+          <div class="why-title">End-to-End Support</div>
+          <div class="why-desc">From account setup to advanced scaling, I'm your single point of contact for everything Amazon.</div>
+        </div>
       </div>
-      <div class="why-item">
-        <div class="why-check">&#10003; VERIFIED</div>
-        <div class="why-title">Deep Platform Expertise</div>
-        <div class="why-desc">Years of hands-on experience across dozens of categories, from private label to wholesale and beyond.</div>
-      </div>
-      <div class="why-item">
-        <div class="why-check">&#10003; VERIFIED</div>
-        <div class="why-title">Transparent Communication</div>
-        <div class="why-desc">Regular updates, honest reporting, and direct access to me — you'll always know exactly where things stand.</div>
-      </div>
-      <div class="why-item">
-        <div class="why-check">&#10003; VERIFIED</div>
-        <div class="why-title">End-to-End Support</div>
-        <div class="why-desc">From account setup to advanced scaling, I'm your single point of contact for everything Amazon.</div>
+    </div>
+
+    <!-- Marketer mode -->
+    <div class="mode-marketer">
+      <div class="section-label reveal" style="color:var(--orange)">Why Choose Me</div>
+      <h2 class="section-title reveal">A Marketer Who Thinks<br>Like a Builder</h2>
+      <p class="section-sub reveal">
+        Strategy without execution is just theory. I bring both — hands-on
+        delivery, team leadership, and a product mindset that connects
+        marketing to real business outcomes.
+      </p>
+      <div class="why-grid reveal-stagger">
+        <div class="why-item">
+          <div class="why-check" style="color:var(--orange);background:rgba(236,72,153,.08);border-color:rgba(236,72,153,.18)">&#10003; PROVEN</div>
+          <div class="why-title">Agency-Tested, Brand-Ready</div>
+          <div class="why-desc">Founded and ran a 30-client digital agency — I know what scales and what doesn't, across industries and budgets.</div>
+        </div>
+        <div class="why-item">
+          <div class="why-check" style="color:var(--orange);background:rgba(236,72,153,.08);border-color:rgba(236,72,153,.18)">&#10003; PROVEN</div>
+          <div class="why-title">Full-Channel Coverage</div>
+          <div class="why-desc">From paid search to e-commerce to content strategy — I connect the dots across channels so your brand stays consistent and profitable.</div>
+        </div>
+        <div class="why-item">
+          <div class="why-check" style="color:var(--orange);background:rgba(236,72,153,.08);border-color:rgba(236,72,153,.18)">&#9670; PM MINDSET</div>
+          <div class="why-title">Product Manager Perspective</div>
+          <div class="why-desc">Hands-on PM experience at a global AB InBev platform — I think in user journeys, funnels, and feature impact, not just campaigns.</div>
+        </div>
+        <div class="why-item">
+          <div class="why-check" style="color:var(--orange);background:rgba(236,72,153,.08);border-color:rgba(236,72,153,.18)">&#10003; PROVEN</div>
+          <div class="why-title">Data Before Decisions</div>
+          <div class="why-desc">Every strategy starts with numbers. A/B tests, cohort analysis, retention curves — I build marketing that compounds over time.</div>
+        </div>
       </div>
     </div>
   </section>
@@ -1076,8 +1299,10 @@
   <!-- CTA Band -->
   <div class="cta-band reveal" id="contact">
     <div class="section-label" style="justify-content:center; margin-bottom:20px;">Let's Connect</div>
-    <h2>Ready to Grow Your<br>Amazon Business?</h2>
-    <p>Let's talk about your goals and build a strategy that gets you there. First consultation is on me.</p>
+    <h2 class="mode-amazon">Ready to Grow Your<br>Amazon Business?</h2>
+    <h2 class="mode-marketer">Ready to Build Something<br>Great Together?</h2>
+    <p class="mode-amazon">Let's talk about your goals and build a strategy that gets you there. First consultation is on me.</p>
+    <p class="mode-marketer">Whether you need a Head of Marketing, a strategic partner, or a campaign that actually moves the needle — let's talk. First consultation is on me.</p>
     <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center;">
       <a href="mailto:aviel@gendler.com" class="btn btn-primary" style="font-size:.9rem; padding: 14px 32px;">
         Send a Message
@@ -1131,8 +1356,32 @@
 
     document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => observer.observe(el));
 
+    // ── Mode Switcher ──
+    function setMode(mode) {
+      const body = document.body;
+      if (body.dataset.mode === mode) return;
+      body.classList.add('mode-switching');
+      setTimeout(() => {
+        body.dataset.mode = mode;
+        body.classList.remove('mode-switching');
+        // update toggle buttons
+        document.querySelectorAll('.mode-btn').forEach(btn => {
+          btn.classList.toggle('active', btn.classList.contains('mode-btn-' + mode));
+        });
+        // re-trigger scroll reveals for newly visible content
+        document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => {
+          el.classList.remove('visible');
+          observer.observe(el);
+        });
+        // animate marketer counters on first switch
+        if (mode === 'marketer') {
+          document.querySelectorAll('.perf-stat-value[data-mode="marketer"]').forEach(animateCounter);
+        }
+      }, 200);
+    }
+
     // Animate perf panel counters on page load (hero is immediately visible)
-    document.querySelectorAll('.perf-stat-value[data-target]').forEach(animateCounter);
+    document.querySelectorAll('.perf-stat-value[data-target]:not([data-mode])').forEach(animateCounter);
 
     // ── Animated stat counters ──
     function animateCounter(el) {
@@ -1154,8 +1403,26 @@
     }
 
     // ── Typewriter ──
-    const twEl = document.getElementById('typewriter');
-    const twPhrases = [
+    function startTypewriter(elId, phrases, delay) {
+      const el = document.getElementById(elId);
+      if (!el) return;
+      let index = 0, char = 0, deleting = false;
+      function tick() {
+        const phrase = phrases[index];
+        if (!deleting) {
+          el.textContent = phrase.slice(0, ++char);
+          if (char === phrase.length) { deleting = true; setTimeout(tick, 2200); return; }
+          setTimeout(tick, 55);
+        } else {
+          el.textContent = phrase.slice(0, --char);
+          if (char === 0) { deleting = false; index = (index + 1) % phrases.length; setTimeout(tick, 400); return; }
+          setTimeout(tick, 28);
+        }
+      }
+      setTimeout(tick, delay);
+    }
+
+    startTypewriter('typewriter-amazon', [
       'Turn listings into revenue machines.',
       'Page one or bust — every single launch.',
       'PPC that pays for itself.',
@@ -1164,31 +1431,18 @@
       'From zero to best-seller, one move at a time.',
       'Dominate search. Convert browsers. Scale fast.',
       'More reviews. Lower ACoS. Higher profit.',
-    ];
-    let twIndex = 0, twChar = 0, twDeleting = false;
+    ], 1000);
 
-    function typewriter() {
-      const phrase = twPhrases[twIndex];
-      if (!twDeleting) {
-        twEl.textContent = phrase.slice(0, ++twChar);
-        if (twChar === phrase.length) {
-          twDeleting = true;
-          setTimeout(typewriter, 2200);
-          return;
-        }
-        setTimeout(typewriter, 55);
-      } else {
-        twEl.textContent = phrase.slice(0, --twChar);
-        if (twChar === 0) {
-          twDeleting = false;
-          twIndex = (twIndex + 1) % twPhrases.length;
-          setTimeout(typewriter, 400);
-          return;
-        }
-        setTimeout(typewriter, 28);
-      }
-    }
-    setTimeout(typewriter, 1000);
+    startTypewriter('typewriter-marketer', [
+      'Strategy that moves the needle.',
+      'Brand-first. Data-driven. Results-obsessed.',
+      'Full-channel growth, from day one.',
+      'Marketing that compounds over time.',
+      'Agency speed. In-house commitment.',
+      'Your growth is the only metric that matters.',
+      'From positioning to performance — end to end.',
+      'Built 30+ brands. Ready to build yours.',
+    ], 1200);
   </script>
 </body>
 </html>
