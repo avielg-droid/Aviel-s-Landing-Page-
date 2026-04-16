@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amazon PPC Campaign Structure: How to Build Campaigns That Actually Scale</title>
+  <meta name="description" content="The right Amazon PPC campaign structure separates profitable spend from waste. Here's the exact architecture I use across a $25M+ portfolio to keep TACOS falling as revenue grows." />
+  <link rel="canonical" href="https://avielg.com/blog/amazon-ppc-campaign-structure/" />
+  <meta property="og:title" content="Amazon PPC Campaign Structure: How to Build Campaigns That Actually Scale" />
+  <meta property="og:description" content="The exact PPC architecture that keeps TACOS falling as revenue grows — from managing $8M+ in Amazon ad spend." />
+  <meta property="og:url" content="https://avielg.com/blog/amazon-ppc-campaign-structure/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://avielg.com/photo.jpeg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Amazon PPC Campaign Structure: How to Build Campaigns That Actually Scale" />
+  <meta name="twitter:description" content="The exact PPC architecture that keeps TACOS falling as revenue grows — from $8M+ in managed ad spend." />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Amazon PPC Campaign Structure: How to Build Campaigns That Actually Scale",
+    "description": "The exact Amazon PPC campaign architecture that keeps TACOS falling as revenue grows, from managing $8M+ in ad spend.",
+    "author": { "@type": "Person", "name": "Aviel Gendler", "url": "https://avielg.com", "jobTitle": "Amazon Growth Expert & Full-Stack Marketer" },
+    "publisher": { "@type": "Person", "name": "Aviel Gendler", "url": "https://avielg.com" },
+    "datePublished": "2026-04-20",
+    "dateModified": "2026-04-20",
+    "url": "https://avielg.com/blog/amazon-ppc-campaign-structure/",
+    "mainEntityOfPage": "https://avielg.com/blog/amazon-ppc-campaign-structure/",
+    "keywords": ["amazon ppc campaign structure", "amazon advertising structure", "amazon sponsored products", "amazon ppc strategy", "amazon campaign setup"]
+  }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400&family=Roboto+Flex:opsz,wght@8..144,300;8..144,400;8..144,500;8..144,600;8..144,700;8..144,800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg: #FFFFFF; --surface: #F5F3FF; --card: #FAF9FF; --border: #DDD9FF; --green: #4F46E5; --orange: #EC4899; --blue: #10B981; --text: #1E1B4B; --muted: #6B7280; --radius: 12px; --mono: 'JetBrains Mono', monospace; --sans: 'Roboto Flex', sans-serif; --display: 'Fraunces', serif; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: radial-gradient(circle, #C7D2FE 1px, transparent 1px); background-size: 32px 32px; opacity: .25; pointer-events: none; z-index: 0; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 60px; background: rgba(255,255,255,.88); border-bottom: 1px solid var(--border); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    .nav-logo { font-family: var(--mono); font-weight: 700; font-size: 1rem; color: var(--green); text-decoration: none; }
+    .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: transform .25s, opacity .25s; margin-bottom: 5px; }
+    .nav-hamburger span:last-child { margin-bottom: 0; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: .82rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; transition: color .2s; }
+    .nav-links a:hover { color: var(--text); }
+    .article-wrap { max-width: 780px; margin: 0 auto; padding: 120px 40px 80px; position: relative; z-index: 1; }
+    .breadcrumb { font-family: var(--mono); font-size: .75rem; color: var(--muted); margin-bottom: 32px; display: flex; align-items: center; gap: 8px; }
+    .breadcrumb a { color: var(--green); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { opacity: .5; }
+    .article-header { margin-bottom: 48px; }
+    .article-tag { display: inline-block; font-family: var(--mono); font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--green); background: var(--surface); border: 1px solid var(--border); padding: 4px 12px; border-radius: 20px; margin-bottom: 20px; }
+    .article-header h1 { font-family: var(--display); font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; line-height: 1.2; color: var(--text); margin-bottom: 20px; letter-spacing: -.02em; }
+    .article-meta { display: flex; align-items: center; gap: 24px; font-family: var(--mono); font-size: .75rem; color: var(--muted); padding-bottom: 24px; border-bottom: 2px solid var(--border); }
+    .article-meta-author { display: flex; align-items: center; gap: 10px; color: var(--text); font-weight: 600; }
+    .article-meta-author a { color: var(--green); text-decoration: none; }
+    .result-callout { background: linear-gradient(135deg, var(--surface) 0%, #FDF2F8 100%); border: 1px solid var(--border); border-left: 4px solid var(--green); border-radius: var(--radius); padding: 24px 28px; margin: 36px 0; display: flex; align-items: flex-start; gap: 16px; }
+    .result-callout-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
+    .result-callout-text { font-size: .95rem; line-height: 1.6; color: var(--text); }
+    .result-callout-text strong { color: var(--green); }
+    .article-body { font-size: 1.05rem; line-height: 1.8; color: var(--text); }
+    .article-body h2 { font-family: var(--display); font-size: 1.7rem; font-weight: 700; color: var(--text); margin: 52px 0 20px; letter-spacing: -.01em; padding-top: 8px; border-top: 2px solid var(--border); }
+    .article-body h3 { font-family: var(--sans); font-size: 1.15rem; font-weight: 700; color: var(--text); margin: 36px 0 12px; }
+    .article-body p { margin-bottom: 20px; }
+    .article-body ul, .article-body ol { margin: 16px 0 24px 24px; }
+    .article-body li { margin-bottom: 10px; line-height: 1.7; }
+    .article-body a { color: var(--green); text-decoration: underline; text-underline-offset: 3px; }
+    .article-body strong { font-weight: 700; color: var(--text); }
+    .campaign-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 28px; margin: 16px 0; display: flex; gap: 20px; align-items: flex-start; }
+    .campaign-icon { width: 44px; height: 44px; border-radius: 10px; background: var(--surface); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+    .campaign-info { flex: 1; }
+    .campaign-name { font-family: var(--mono); font-size: .82rem; font-weight: 700; color: var(--green); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 6px; }
+    .campaign-info h3 { font-size: 1rem; margin: 0 0 8px; }
+    .campaign-info p { font-size: .88rem; color: var(--muted); line-height: 1.6; margin: 0; }
+    .campaign-meta { display: flex; gap: 16px; margin-top: 10px; flex-wrap: wrap; }
+    .campaign-tag { font-family: var(--mono); font-size: .68rem; color: var(--muted); background: var(--surface); border: 1px solid var(--border); padding: 2px 8px; border-radius: 20px; }
+    .highlight-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; margin: 24px 0; font-size: .92rem; }
+    .highlight-box p { margin-bottom: 8px; }
+    .highlight-box p:last-child { margin-bottom: 0; }
+    .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 32px 0; }
+    .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; text-align: center; }
+    .stat-card .stat-num { font-family: var(--display); font-size: 2rem; font-weight: 800; color: var(--green); line-height: 1; margin-bottom: 6px; }
+    .stat-card .stat-label { font-size: .78rem; font-family: var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+    .case-study { background: linear-gradient(135deg, #EEF2FF 0%, #FDF2F8 100%); border: 1px solid var(--border); border-radius: 16px; padding: 36px 40px; margin: 40px 0; }
+    .case-study-label { font-family: var(--mono); font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--orange); margin-bottom: 12px; }
+    .case-study h2 { border-top: none; padding-top: 0; margin-top: 0; font-size: 1.4rem; margin-bottom: 16px; }
+    .case-study-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 24px 0; }
+    .case-stat { text-align: center; }
+    .case-stat .before-after { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 6px; }
+    .case-stat .before { font-family: var(--display); font-size: 1.4rem; font-weight: 700; color: var(--orange); text-decoration: line-through; opacity: .7; }
+    .case-stat .arrow { color: var(--muted); font-size: .9rem; }
+    .case-stat .after { font-family: var(--display); font-size: 1.6rem; font-weight: 800; color: var(--blue); }
+    .case-stat .case-label { font-family: var(--mono); font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+    .article-cta { background: var(--text); border-radius: 16px; padding: 48px; margin: 56px 0 0; text-align: center; color: #fff; }
+    .article-cta h2 { font-family: var(--display); font-size: 1.8rem; font-weight: 700; color: #fff; margin-bottom: 16px; border: none; padding: 0; }
+    .article-cta p { color: rgba(255,255,255,.7); font-size: .98rem; margin-bottom: 28px; max-width: 440px; margin-left: auto; margin-right: auto; }
+    .article-cta .cta-btn { display: inline-block; background: var(--green); color: #fff; font-family: var(--mono); font-size: .85rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 16px 36px; border-radius: 8px; text-decoration: none; transition: opacity .2s, transform .2s; }
+    .article-cta .cta-btn:hover { opacity: .9; transform: translateY(-2px); }
+    .article-footer { margin-top: 80px; padding-top: 32px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: .75rem; color: var(--muted); }
+    .article-footer a { color: var(--green); text-decoration: none; }
+    .article-footer a:hover { text-decoration: underline; }
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; } .nav-hamburger { display: flex; flex-direction: column; } .nav-links { display: none; }
+      .nav-links.open { display: flex; flex-direction: column; position: fixed; top: 57px; left: 0; right: 0; background: rgba(255,255,255,.98); border-bottom: 1px solid var(--border); padding: 20px 24px 24px; gap: 20px; z-index: 99; }
+      .nav-links.open a { font-size: .9rem; } .article-wrap { padding: 100px 20px 60px; } .stat-row { grid-template-columns: 1fr 1fr; } .case-study-stats { grid-template-columns: 1fr; gap: 20px; } .case-study { padding: 28px 24px; } .article-cta { padding: 36px 24px; } .campaign-card { flex-direction: column; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/" class="nav-logo">avielg.com</a>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    <div class="nav-links" id="navLinks">
+      <a href="/#services">Services</a><a href="/#why">Why Me</a><a href="/blog/">Blog</a><a href="/#contact">Contact</a>
+    </div>
+  </nav>
+  <div class="article-wrap">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a><span>/</span><a href="/blog/">Blog</a><span>/</span><span>Amazon PPC Campaign Structure</span>
+    </nav>
+    <header class="article-header">
+      <div class="article-tag">Amazon PPC</div>
+      <h1>Amazon PPC Campaign Structure: How to Build Campaigns That Actually Scale</h1>
+      <div class="article-meta">
+        <div class="article-meta-author">By <a href="/">Aviel Gendler</a></div>
+        <span>·</span><span>April 20, 2026</span><span>·</span><span>11 min read</span>
+      </div>
+    </header>
+    <div class="result-callout">
+      <div class="result-callout-icon">⚙️</div>
+      <div class="result-callout-text">
+        <strong>The core problem:</strong> Most Amazon ad accounts I audit have one or two campaigns doing everything — auto, broad, and exact match keywords all competing for the same budget, with no way to tell what's actually working. Structure is what makes optimization possible.
+      </div>
+    </div>
+    <article class="article-body">
+      <p>Campaign structure isn't exciting. It doesn't feel like strategy. But in my experience managing $8M+ in Amazon ad spend across 30+ brands, poor campaign structure is the single most common reason accounts plateau — the spend keeps going up, but the efficiency never improves.</p>
+      <p>When everything is in one campaign, you can't isolate what's working. You can't protect your best keywords. You can't set different ACoS targets for different objectives. And you definitely can't scale without spending yourself into unprofitability.</p>
+      <p>Here's the architecture I use — and why each component exists.</p>
+
+      <h2>The 5-Campaign Core Architecture</h2>
+      <p>For a mature product, I run five distinct campaign types. Each has a specific job, its own budget, and its own success metric.</p>
+
+      <div class="campaign-card">
+        <div class="campaign-icon">🔍</div>
+        <div class="campaign-info">
+          <div class="campaign-name">Campaign 1</div>
+          <h3>Auto Campaign — Discovery</h3>
+          <p>Low bids ($0.30–0.50), capped budget. The job of this campaign is purely to discover new search terms — not to drive revenue efficiently. Every week, pull the search term report and harvest converting terms into exact match campaigns. Aggressively add non-converting terms as negatives.</p>
+          <div class="campaign-meta">
+            <span class="campaign-tag">Bid: Low ($0.30–0.50)</span>
+            <span class="campaign-tag">ACoS target: Not primary metric</span>
+            <span class="campaign-tag">Budget: 10–15% of total</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="campaign-card">
+        <div class="campaign-icon">🎯</div>
+        <div class="campaign-info">
+          <div class="campaign-name">Campaign 2</div>
+          <h3>Exact Match — Core Keywords</h3>
+          <p>Your 5–15 proven converting keywords, each in their own exact match campaign with a dedicated daily budget. These are keywords that have demonstrated profitable conversion in your account. They get priority budget and bids set just below break-even ACoS. These campaigns should never run out of budget.</p>
+          <div class="campaign-meta">
+            <span class="campaign-tag">Bid: Data-driven (break-even ACoS formula)</span>
+            <span class="campaign-tag">ACoS target: At or below break-even</span>
+            <span class="campaign-tag">Budget: 40–50% of total</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="campaign-card">
+        <div class="campaign-icon">📡</div>
+        <div class="campaign-info">
+          <div class="campaign-name">Campaign 3</div>
+          <h3>Broad / Phrase Match — Expansion</h3>
+          <p>Secondary keywords in broad or phrase match, used to expand coverage and surface new variations. These feed the exact match campaigns — any term that converts 3+ times here gets promoted to an exact match campaign. Moderate bids, moderate budget.</p>
+          <div class="campaign-meta">
+            <span class="campaign-tag">Bid: 70–80% of exact match bid</span>
+            <span class="campaign-tag">ACoS target: Slightly above break-even</span>
+            <span class="campaign-tag">Budget: 20–25% of total</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="campaign-card">
+        <div class="campaign-icon">🛡️</div>
+        <div class="campaign-info">
+          <div class="campaign-name">Campaign 4</div>
+          <h3>Brand Defense — Own ASINs</h3>
+          <p>Target your own ASINs with Sponsored Products at a low bid. This fills the "related products" carousel on your listing with your own products instead of competitors. The cost is minimal (you're rarely outbid on your own ASINs) and it prevents margin leakage to competitors at the most critical conversion moment.</p>
+          <div class="campaign-meta">
+            <span class="campaign-tag">Bid: Low (self-targeting)</span>
+            <span class="campaign-tag">ACoS target: Not primary metric</span>
+            <span class="campaign-tag">Budget: 5% of total</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="campaign-card">
+        <div class="campaign-icon">⚔️</div>
+        <div class="campaign-info">
+          <div class="campaign-name">Campaign 5</div>
+          <h3>Competitor Targeting — Market Share</h3>
+          <p>ASIN targeting on competitor product pages and keyword targeting on competitor brand terms. Higher ACoS is acceptable here — you're investing in market share, not just efficiency. Evaluate on 30-day windows and track share of voice, not just ACoS.</p>
+          <div class="campaign-meta">
+            <span class="campaign-tag">Bid: Moderate</span>
+            <span class="campaign-tag">ACoS target: Up to 1.5x break-even</span>
+            <span class="campaign-tag">Budget: 15–20% of total</span>
+          </div>
+        </div>
+      </div>
+
+      <h2>The Harvesting Workflow</h2>
+      <p>Structure only works if you maintain the flow between campaigns. Here's the weekly routine:</p>
+      <ol>
+        <li><strong>Pull search term reports</strong> from auto and broad/phrase campaigns</li>
+        <li><strong>Add negatives</strong> — any term with 5+ clicks and 0 orders becomes a negative keyword in that campaign</li>
+        <li><strong>Promote winners</strong> — any term with 3+ orders gets added as an exact match keyword in its own campaign (or the existing exact match campaign if similar enough)</li>
+        <li><strong>Check budget caps</strong> — if your exact match campaigns are hitting daily budget limits, increase the budget. You never want your best keywords to stop serving mid-day.</li>
+        <li><strong>Review bid pacing</strong> — keywords with improving CVR can support higher bids. Keywords with declining CVR need bid reductions.</li>
+      </ol>
+
+      <div class="highlight-box">
+        <p><strong>Time commitment:</strong> This review takes 30–45 minutes per week per product. It's the most important 30 minutes you'll spend on Amazon PPC. Accounts that skip weekly maintenance drift toward inefficiency within 60 days.</p>
+      </div>
+
+      <div class="case-study">
+        <div class="case-study-label">Real-World Case Study</div>
+        <h2>Restructure Cut ACoS by 35% in 60 Days</h2>
+        <p>A home goods brand came to me with a single auto campaign and two broad match campaigns running everything — $6,000/month in spend, 38% ACoS, no visibility into what was working. The account had never been structured.</p>
+        <p>Over 3 weeks, we rebuilt the account into the 5-campaign architecture, harvested the top 12 converting exact match keywords into protected campaigns, and added 200+ negatives from 6 months of ignored search term data.</p>
+        <div class="case-study-stats">
+          <div class="case-stat">
+            <div class="before-after"><span class="before">38%</span><span class="arrow">→</span><span class="after">25%</span></div>
+            <div class="case-label">ACoS</div>
+          </div>
+          <div class="case-stat">
+            <div class="before-after"><span class="before">2</span><span class="arrow">→</span><span class="after">18</span></div>
+            <div class="case-label">Campaigns</div>
+          </div>
+          <div class="case-stat">
+            <div class="before-after"><span class="before">$0</span><span class="arrow">→</span><span class="after">$1.4k</span></div>
+            <div class="case-label">Monthly savings</div>
+          </div>
+        </div>
+        <p>Same product. Same total budget. Same keywords — just structured so the profitable ones got protected budget and the money-losing terms were cut. The restructure paid for itself in the first month.</p>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-card"><div class="stat-num">$8M+</div><div class="stat-label">Ad spend managed</div></div>
+        <div class="stat-card"><div class="stat-num">30+</div><div class="stat-label">Accounts structured</div></div>
+        <div class="stat-card"><div class="stat-num">$25M+</div><div class="stat-label">Revenue portfolio</div></div>
+      </div>
+    </article>
+
+    <div class="article-cta">
+      <h2>Want Your PPC Account Restructured?</h2>
+      <p>I audit Amazon ad accounts and rebuild campaign structures that isolate what's working and cut what isn't. Let's review yours.</p>
+      <a href="/#contact" class="cta-btn">Work With Aviel</a>
+    </div>
+    <div class="article-footer">
+      <div><a href="/blog/">← Back to Blog</a></div>
+      <div>Written by <a href="/">Aviel Gendler</a> · <a href="https://www.linkedin.com/in/aviel-gendler-marketing/" target="_blank" rel="noopener">LinkedIn</a></div>
+    </div>
+  </div>
+  <script>
+    const hamburger = document.getElementById('navHamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); navLinks.classList.toggle('open'); });
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
