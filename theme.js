@@ -131,13 +131,23 @@
       '}',
       'html[data-theme="dark"] table{border-color:var(--border)!important;}',
 
-      /* ── Logo carousel: invert so white bgs blend into dark bg ────  */
+      /* ── Logo carousel: invert + screen blend dissolves any bg ─────  */
+      /*
+       * invert(1): white bg→black, dark marks→white
+       * mix-blend-mode:screen: black pixels dissolve into dark page bg
+       * Result: all logo backgrounds vanish regardless of original color
+       */
       'html[data-theme="dark"] .logo-item img{',
-        'filter:grayscale(100%) invert(1) opacity(.55)!important;',
+        'filter:grayscale(100%) invert(1) opacity(.6)!important;',
+        'mix-blend-mode:screen;',
       '}',
       'html[data-theme="dark"] .logo-item img:hover{',
         'filter:grayscale(20%) invert(1) opacity(1)!important;',
+        'mix-blend-mode:screen;',
       '}',
+
+      /* ── Carousel: GPU layer prevents jump during theme transition ──  */
+      '.logo-track{will-change:transform;backface-visibility:hidden;}',
 
       /* ── Footer social buttons stay branded ─────────────────────  */
       'html[data-theme="dark"] .s-linkedin{background:#0a66c2!important;}',
@@ -199,7 +209,8 @@
       '}',
 
       /* ── Transition: smooth theme switch ────────────────────────  */
-      'html.theme-transitioning *{',
+      /* Exclude .logo-track so the CSS animation doesn't jump on toggle */
+      'html.theme-transitioning *:not(.logo-track){',
         'transition:',
           'background-color .25s ease,',
           'color .2s ease,',
