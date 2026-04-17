@@ -156,13 +156,14 @@
       .article-cta { padding: 36px 24px; }
       .timeline-left { width: 60px; }
     }
-    /* Focus visible for keyboard navigation */
-    a:focus-visible, button:focus-visible {
-      outline: 2px solid var(--green);
+    /* Focus visible — clear blue ring for keyboard navigation */
+    :focus-visible {
+      outline: 3px solid #1d4ed8;
       outline-offset: 3px;
       border-radius: 3px;
+      box-shadow: 0 0 0 1px #fff;
     }
-    :focus:not(:focus-visible) { outline: none; }
+    :focus:not(:focus-visible) { outline: none; box-shadow: none; }
   </style>
 </head>
 <body>

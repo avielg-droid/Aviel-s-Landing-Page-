@@ -91,7 +91,7 @@
       '#cookie-consent-banner .ccb-decline:hover { border-color: #0f766e; color: #0f766e; }',
       '#cookie-consent-banner .ccb-decline:active { transform: scale(.97); }',
       '#cookie-consent-banner .ccb-accept:focus-visible, #cookie-consent-banner .ccb-decline:focus-visible {',
-      '  outline: 2px solid #0D9488; outline-offset: 2px;',
+      '  outline: 3px solid #1d4ed8; outline-offset: 3px; box-shadow: 0 0 0 1px #fff;',
       '}',
       '@media (max-width: 480px) {',
       '  #cookie-consent-banner { bottom: 16px; padding: 16px; }',

@@ -1036,28 +1036,19 @@
     /* ── Hamburger pointer ── */
     .nav-hamburger { cursor: pointer; }
 
-    /* ── Focus visible ── */
-    .btn:focus-visible {
-      outline: 2px solid var(--green);
-      outline-offset: 3px;
-      box-shadow: 0 0 0 4px rgba(13,148,136,.15);
-    }
-    .mode-btn:focus-visible {
-      outline: 2px solid var(--green);
-      outline-offset: 2px;
-    }
-
-    /* ── Focus-visible: all interactive elements ── */
-    a:focus-visible,
-    button:focus-visible {
-      outline: 2px solid var(--green);
+    /* ── Focus visible — clear blue ring for keyboard navigation ── */
+    :focus-visible {
+      outline: 3px solid #1d4ed8;
       outline-offset: 3px;
       border-radius: 3px;
+      box-shadow: 0 0 0 1px #fff;   /* white halo so ring stands out on any bg */
     }
-    /* Ensure focus ring is never suppressed */
-    :focus:not(:focus-visible) { outline: none; }
-    .btn:focus-visible { border-radius: 8px; }
-    .mode-btn:focus-visible { border-radius: 100px; outline-offset: 2px; }
+    /* Suppress outline on mouse/touch; keep it for keyboard */
+    :focus:not(:focus-visible) { outline: none; box-shadow: none; }
+    /* Shape overrides per element type */
+    .btn:focus-visible        { border-radius: 8px; }
+    .mode-btn:focus-visible   { border-radius: 100px; outline-offset: 2px; }
+    a.nav-logo:focus-visible  { border-radius: 4px; }
 
     /* ── Marketer mode: CSS-driven orange overrides (replaces inline styles) ── */
     .mode-marketer .hero-eyebrow { color: var(--orange); }

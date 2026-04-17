@@ -70,8 +70,8 @@
     .nav-links a:hover { color: var(--text); }
 
     /* Focus visible */
-    a:focus-visible, button:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; border-radius: 3px; }
-    :focus:not(:focus-visible) { outline: none; }
+    :focus-visible { outline: 3px solid #1d4ed8; outline-offset: 3px; border-radius: 3px; box-shadow: 0 0 0 1px #fff; }
+    :focus:not(:focus-visible) { outline: none; box-shadow: none; }
 
     .page-wrap { max-width: 720px; margin: 0 auto; padding: 120px 40px 100px; position: relative; z-index: 1; }
 
