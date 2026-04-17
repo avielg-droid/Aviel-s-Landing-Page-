@@ -83,8 +83,8 @@
       --surface: #F0FDFB;
       --card: #F6FDFC;
       --border: #CCEAE7;
-      --green: #0D9488;
-      --orange: #EC4899;
+      --green: #0f766e;
+      --orange: #be185d;
       --blue: #10B981;
       --text: #111827;
       --muted: #6B7280;
@@ -1047,6 +1047,18 @@
       outline-offset: 2px;
     }
 
+    /* ── Focus-visible: all interactive elements ── */
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--green);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+    /* Ensure focus ring is never suppressed */
+    :focus:not(:focus-visible) { outline: none; }
+    .btn:focus-visible { border-radius: 8px; }
+    .mode-btn:focus-visible { border-radius: 100px; outline-offset: 2px; }
+
     /* ── Marketer mode: CSS-driven orange overrides (replaces inline styles) ── */
     .mode-marketer .hero-eyebrow { color: var(--orange); }
     .mode-marketer .highlight { color: var(--orange); }
@@ -1103,17 +1115,17 @@
   <a href="#main-content" class="skip-link">Skip to content</a>
 
   <!-- Nav -->
-  <nav id="nav">
+  <nav id="nav" aria-label="Primary navigation">
     <a href="/" class="nav-logo">Aviel G.<span class="cursor"></span></a>
     <div class="nav-right">
       <div class="nav-status">
-        <div class="nav-status-dot"></div>
-        Available
+        <div class="nav-status-dot" aria-hidden="true"></div>
+        <span>Available for projects</span>
       </div>
-      <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu">
+      <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
         <span></span><span></span><span></span>
       </button>
-      <div class="nav-links" id="navLinks">
+      <div class="nav-links" id="navLinks" role="list">
         <a href="#services" onclick="closeNav()">Services</a>
         <a href="#why" onclick="closeNav()">Why Me</a>
         <a href="/blog/">Blog</a>
@@ -1126,18 +1138,18 @@
   <main id="main-content">
 
   <!-- Hero -->
-  <div class="hero">
+  <section class="hero" aria-label="Introduction">
     <!-- Left: Editorial content -->
     <div class="hero-left">
       <div class="hero-photo-wrap">
         <img src="photo.jpeg" alt="Aviel Gendler" class="hero-photo" />
-        <div class="hero-photo-ring"></div>
+        <div class="hero-photo-ring" aria-hidden="true"></div>
       </div>
 
       <!-- Mode Switcher -->
-      <div class="mode-switcher">
-        <button class="mode-btn mode-btn-amazon active" onclick="setMode('amazon')">Amazon Growth</button>
-        <button class="mode-btn mode-btn-marketer" onclick="setMode('marketer')">Full-Stack Marketer</button>
+      <div class="mode-switcher" role="group" aria-label="View mode">
+        <button class="mode-btn mode-btn-amazon active" aria-pressed="true" onclick="setMode('amazon')">Amazon Growth</button>
+        <button class="mode-btn mode-btn-marketer" aria-pressed="false" onclick="setMode('marketer')">Full-Stack Marketer</button>
       </div>
 
       <div class="mode-amazon mode-fade">
@@ -1154,7 +1166,7 @@
 
       <div class="mode-marketer mode-fade">
         <div class="hero-eyebrow">02 / Full-Stack Marketer</div>
-        <div class="h1-display">The Marketer Who<br>Grows Brands —<br><span class="highlight">Everywhere</span></div>
+        <h1 class="h1-display">The Marketer Who<br>Grows Brands —<br><span class="highlight">Everywhere</span></h1>
         <div class="typewriter-wrap">
           <span class="typewriter-text" id="typewriter-marketer"></span><span class="typewriter-cursor">|</span>
         </div>
@@ -1176,7 +1188,7 @@
         <div class="mode-amazon mode-fade">
           <div class="perf-panel-header">
             <span class="perf-panel-title">Client Portfolio</span>
-            <span class="perf-live"><span class="perf-live-dot"></span>Live</span>
+            <span class="perf-live"><span class="perf-live-dot" aria-hidden="true"></span>Live</span>
           </div>
           <div class="perf-stats">
             <div class="perf-stat-row">
@@ -1201,12 +1213,12 @@
             </div>
           </div>
           <div class="perf-panel-footer">
-            <span class="perf-tag"><span class="perf-tag-dot"></span>CATALOG MGMT</span>
-            <span class="perf-tag"><span class="perf-tag-dot"></span>PPC</span>
-            <span class="perf-tag"><span class="perf-tag-dot"></span>SEO</span>
-            <span class="perf-tag"><span class="perf-tag-dot"></span>LAUNCH</span>
-            <span class="perf-tag"><span class="perf-tag-dot"></span>ANALYTICS</span>
-            <span class="perf-tag"><span class="perf-tag-dot"></span>BRAND</span>
+            <span class="perf-tag"><span class="perf-tag-dot" aria-hidden="true"></span>CATALOG MGMT</span>
+            <span class="perf-tag"><span class="perf-tag-dot" aria-hidden="true"></span>PPC</span>
+            <span class="perf-tag"><span class="perf-tag-dot" aria-hidden="true"></span>SEO</span>
+            <span class="perf-tag"><span class="perf-tag-dot" aria-hidden="true"></span>LAUNCH</span>
+            <span class="perf-tag"><span class="perf-tag-dot" aria-hidden="true"></span>ANALYTICS</span>
+            <span class="perf-tag"><span class="perf-tag-dot" aria-hidden="true"></span>BRAND</span>
           </div>
         </div>
 
@@ -1214,7 +1226,7 @@
         <div class="mode-marketer mode-fade">
           <div class="perf-panel-header">
             <span class="perf-panel-title">Marketing Track Record</span>
-            <span class="perf-live"><span class="perf-live-dot"></span>Live</span>
+            <span class="perf-live"><span class="perf-live-dot" aria-hidden="true"></span>Live</span>
           </div>
           <div class="perf-stats">
             <div class="perf-stat-row">
@@ -1239,20 +1251,20 @@
             </div>
           </div>
           <div class="perf-panel-footer">
-            <span class="perf-tag"><span class="perf-tag-dot"></span>MULTI-CHANNEL</span>
-            <span class="perf-tag"><span class="perf-tag-dot"></span>BRAND STRATEGY</span>
-            <span class="perf-tag"><span class="perf-tag-dot"></span>E-COMMERCE</span>
-            <span class="perf-tag"><span class="perf-tag-dot"></span>CONTENT</span>
-            <span class="perf-tag"><span class="perf-tag-dot"></span>TEAM LEAD</span>
-            <span class="perf-tag"><span class="perf-tag-dot"></span>DATA-DRIVEN</span>
+            <span class="perf-tag"><span class="perf-tag-dot" aria-hidden="true"></span>MULTI-CHANNEL</span>
+            <span class="perf-tag"><span class="perf-tag-dot" aria-hidden="true"></span>BRAND STRATEGY</span>
+            <span class="perf-tag"><span class="perf-tag-dot" aria-hidden="true"></span>E-COMMERCE</span>
+            <span class="perf-tag"><span class="perf-tag-dot" aria-hidden="true"></span>CONTENT</span>
+            <span class="perf-tag"><span class="perf-tag-dot" aria-hidden="true"></span>TEAM LEAD</span>
+            <span class="perf-tag"><span class="perf-tag-dot" aria-hidden="true"></span>DATA-DRIVEN</span>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Marquee -->
-  <div class="marquee-wrap">
+  <!-- Marquee (decorative, screen readers skip) -->
+  <div class="marquee-wrap" aria-hidden="true">
     <div class="marquee-track mode-amazon">
       <span class="up">&#9650; Listing Optimization</span><span class="sep">|</span>
       <span class="up">&#9650; PPC Management</span><span class="sep">|</span>
@@ -1292,9 +1304,9 @@
   </div>
 
   <!-- Logo Carousel -->
-  <div class="clients-section reveal">
-    <div class="clients-label">Brands I've Worked With</div>
-    <div class="logo-carousel-wrap">
+  <section class="clients-section reveal" aria-label="Brands I've worked with">
+    <p class="clients-label" aria-hidden="true">Brands I've Worked With</p>
+    <div class="logo-carousel-wrap" role="img" aria-label="Client logos: Artori Design, BagMate, Hipstory, Jean Rachel Jewelry, Yankee, DF Omer, Peleg Design, Mava Sports, Maccabi, Fattal, Wolt, Beer Bazaar">
       <div class="logo-track">
         <!-- set 1 -->
         <div class="logo-item"><img src="logos/artori-logo.png" alt="Artori Design" class="logo-sm" /></div>
@@ -1309,22 +1321,24 @@
         <div class="logo-item"><img src="logos/fattal-logo.png" alt="Fattal" /></div>
         <div class="logo-item"><img src="logos/wolt-logo.png" alt="Wolt" /></div>
         <div class="logo-item"><img src="logos/Beerbazaar.svg" alt="Beer Bazaar" /></div>
-        <!-- set 2 — duplicate for seamless loop -->
-        <div class="logo-item"><img src="logos/artori-logo.png" alt="Artori Design" class="logo-sm" /></div>
-        <div class="logo-item"><img src="logos/bagmate-logo.png" alt="BagMate" /></div>
-        <div class="logo-item"><img src="logos/hipstory-logo.webp" alt="Hipstory" /></div>
-        <div class="logo-item"><img src="logos/jean-rachel-logo.png" alt="Jean Rachel Jewelry" /></div>
-        <div class="logo-item"><img src="logos/yankee-logo.png" alt="Yankee" class="logo-xxl" /></div>
-        <div class="logo-item"><img src="logos/logo-df.jpeg" alt="DF Omer" class="logo-xl" /></div>
-        <div class="logo-item"><img src="logos/peleg-logo.png" alt="Peleg Design" class="logo-xl" /></div>
-        <div class="logo-item"><img src="logos/logo-icon.jpg" alt="Mava Sports" /></div>
-        <div class="logo-item"><img src="logos/download-logo.png" alt="Maccabi" class="logo-xl" /></div>
-        <div class="logo-item"><img src="logos/fattal-logo.png" alt="Fattal" /></div>
-        <div class="logo-item"><img src="logos/wolt-logo.png" alt="Wolt" /></div>
-        <div class="logo-item"><img src="logos/Beerbazaar.svg" alt="Beer Bazaar" /></div>
+        <!-- set 2 — duplicate for seamless loop (hidden from screen readers) -->
+        <div aria-hidden="true">
+        <div class="logo-item"><img src="logos/artori-logo.png" alt="" class="logo-sm" /></div>
+        <div class="logo-item"><img src="logos/bagmate-logo.png" alt="" /></div>
+        <div class="logo-item"><img src="logos/hipstory-logo.webp" alt="" /></div>
+        <div class="logo-item"><img src="logos/jean-rachel-logo.png" alt="" /></div>
+        <div class="logo-item"><img src="logos/yankee-logo.png" alt="" class="logo-xxl" /></div>
+        <div class="logo-item"><img src="logos/logo-df.jpeg" alt="" class="logo-xl" /></div>
+        <div class="logo-item"><img src="logos/peleg-logo.png" alt="" class="logo-xl" /></div>
+        <div class="logo-item"><img src="logos/logo-icon.jpg" alt="" /></div>
+        <div class="logo-item"><img src="logos/download-logo.png" alt="" class="logo-xl" /></div>
+        <div class="logo-item"><img src="logos/fattal-logo.png" alt="" /></div>
+        <div class="logo-item"><img src="logos/wolt-logo.png" alt="" /></div>
+        <div class="logo-item"><img src="logos/Beerbazaar.svg" alt="" /></div>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- Services -->
   <section id="services">
@@ -1343,7 +1357,7 @@
             <div class="campaign-name">Listing Optimization</div>
             <div class="campaign-desc">Keyword-rich titles, bullet points, and A+ Content crafted to convert browsers into buyers and boost organic ranking.</div>
           </div>
-          <span class="campaign-status"><span class="campaign-status-dot"></span>ACTIVE</span>
+          <span class="campaign-status"><span class="campaign-status-dot" aria-hidden="true"></span>ACTIVE</span>
         </div>
         <div class="campaign-row">
           <span class="campaign-num">02</span>
@@ -1351,7 +1365,7 @@
             <div class="campaign-name">PPC Campaign Management</div>
             <div class="campaign-desc">Data-driven Sponsored Products, Brands, and Display campaigns that lower ACoS while scaling profitable ad spend.</div>
           </div>
-          <span class="campaign-status"><span class="campaign-status-dot"></span>RUNNING</span>
+          <span class="campaign-status"><span class="campaign-status-dot" aria-hidden="true"></span>RUNNING</span>
         </div>
         <div class="campaign-row">
           <span class="campaign-num">03</span>
@@ -1359,7 +1373,7 @@
             <div class="campaign-name">Product Launch Strategy</div>
             <div class="campaign-desc">Proven launch playbooks to rank on page one fast — combining initial velocity, reviews, and targeted PPC.</div>
           </div>
-          <span class="campaign-status"><span class="campaign-status-dot"></span>PAGE ONE</span>
+          <span class="campaign-status"><span class="campaign-status-dot" aria-hidden="true"></span>PAGE ONE</span>
         </div>
         <div class="campaign-row">
           <span class="campaign-num">04</span>
@@ -1367,7 +1381,7 @@
             <div class="campaign-name">Analytics &amp; Reporting</div>
             <div class="campaign-desc">In-depth performance reviews with clear, actionable insights so you always know what's working and where to invest next.</div>
           </div>
-          <span class="campaign-status"><span class="campaign-status-dot"></span>TRACKING</span>
+          <span class="campaign-status"><span class="campaign-status-dot" aria-hidden="true"></span>TRACKING</span>
         </div>
         <div class="campaign-row">
           <span class="campaign-num">05</span>
@@ -1375,7 +1389,7 @@
             <div class="campaign-name">Brand Registry &amp; Protection</div>
             <div class="campaign-desc">Secure your brand, fight hijackers, and unlock premium Amazon tools like A+ Content, Storefronts, and Brand Analytics.</div>
           </div>
-          <span class="campaign-status"><span class="campaign-status-dot"></span>SECURED</span>
+          <span class="campaign-status"><span class="campaign-status-dot" aria-hidden="true"></span>SECURED</span>
         </div>
         <div class="campaign-row">
           <span class="campaign-num">06</span>
@@ -1383,7 +1397,7 @@
             <div class="campaign-name">Inventory &amp; Logistics</div>
             <div class="campaign-desc">FBA/FBM planning, reorder strategy, and supplier coordination to keep you in stock and avoid costly storage fees.</div>
           </div>
-          <span class="campaign-status"><span class="campaign-status-dot"></span>OPTIMIZED</span>
+          <span class="campaign-status"><span class="campaign-status-dot" aria-hidden="true"></span>OPTIMIZED</span>
         </div>
       </div>
     </div>
@@ -1403,7 +1417,7 @@
             <div class="campaign-name">Multi-Channel PPC</div>
             <div class="campaign-desc">Performance campaigns across paid search and social — built to lower CPAs, scale spend profitably, and hit ROAS targets.</div>
           </div>
-          <span class="campaign-status"><span class="campaign-status-dot"></span>RUNNING</span>
+          <span class="campaign-status"><span class="campaign-status-dot" aria-hidden="true"></span>RUNNING</span>
         </div>
         <div class="campaign-row">
           <span class="campaign-num">02</span>
@@ -1411,7 +1425,7 @@
             <div class="campaign-name">Brand Strategy &amp; Identity</div>
             <div class="campaign-desc">Positioning, messaging, and visual identity that cut through noise — built on audience insight and competitive analysis.</div>
           </div>
-          <span class="campaign-status"><span class="campaign-status-dot"></span>ACTIVE</span>
+          <span class="campaign-status"><span class="campaign-status-dot" aria-hidden="true"></span>ACTIVE</span>
         </div>
         <div class="campaign-row">
           <span class="campaign-num">03</span>
@@ -1419,7 +1433,7 @@
             <div class="campaign-name">E-commerce Growth</div>
             <div class="campaign-desc">Full-funnel e-commerce strategy beyond Amazon — Shopify, marketplaces, and DTC channels optimized for conversion and retention.</div>
           </div>
-          <span class="campaign-status"><span class="campaign-status-dot"></span>SCALING</span>
+          <span class="campaign-status"><span class="campaign-status-dot" aria-hidden="true"></span>SCALING</span>
         </div>
         <div class="campaign-row">
           <span class="campaign-num">04</span>
@@ -1427,7 +1441,7 @@
             <div class="campaign-name">Marketing Team Leadership</div>
             <div class="campaign-desc">Built and led 8-person teams across PPC, design, and content — from hiring to KPIs to cross-functional delivery.</div>
           </div>
-          <span class="campaign-status"><span class="campaign-status-dot"></span>LEADING</span>
+          <span class="campaign-status"><span class="campaign-status-dot" aria-hidden="true"></span>LEADING</span>
         </div>
         <div class="campaign-row">
           <span class="campaign-num">05</span>
@@ -1435,7 +1449,7 @@
             <div class="campaign-name">Content &amp; Creative Direction</div>
             <div class="campaign-desc">Content strategy and creative briefs that align brand voice with performance goals — from ad copy to long-form storytelling.</div>
           </div>
-          <span class="campaign-status"><span class="campaign-status-dot"></span>LIVE</span>
+          <span class="campaign-status"><span class="campaign-status-dot" aria-hidden="true"></span>LIVE</span>
         </div>
         <div class="campaign-row">
           <span class="campaign-num">06</span>
@@ -1443,7 +1457,7 @@
             <div class="campaign-name">Data-Driven Campaigns &amp; A/B Testing</div>
             <div class="campaign-desc">Continuous experimentation frameworks — A/B testing, behavioral analytics, and conversion optimization that compound over time.</div>
           </div>
-          <span class="campaign-status"><span class="campaign-status-dot"></span>OPTIMIZED</span>
+          <span class="campaign-status"><span class="campaign-status-dot" aria-hidden="true"></span>OPTIMIZED</span>
         </div>
       </div>
     </div>
@@ -1520,7 +1534,7 @@
   </main>
 
   <!-- CTA Band -->
-  <div class="cta-band reveal" id="contact">
+  <section class="cta-band reveal" id="contact">
     <div class="section-label section-label--center">Let's Connect</div>
     <h2 class="mode-amazon">Ready to Grow Your<br>Amazon Business?</h2>
     <h2 class="mode-marketer">Ready to Build Something<br>Great Together?</h2>
@@ -1531,33 +1545,33 @@
         Send a Message
       </a>
       <a href="https://www.linkedin.com/in/aviel-gendler-marketing/" target="_blank" rel="noopener" class="btn btn-linkedin btn-lg">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
         Connect on LinkedIn
       </a>
       <a href="https://wa.me/972547516999" target="_blank" rel="noopener" class="btn btn-whatsapp btn-lg">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
         WhatsApp Me
       </a>
     </div>
-  </div>
+  </section>
 
   <!-- Footer -->
   <footer>
     <div class="footer-status">
-      <div class="footer-status-dot"></div>
+      <div class="footer-status-dot" aria-hidden="true"></div>
       Available for new clients
     </div>
     <div class="social-links">
       <a href="https://www.linkedin.com/in/aviel-gendler-marketing/" target="_blank" rel="noopener" class="s-linkedin">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
         LinkedIn
       </a>
       <a href="https://wa.me/972547516999" target="_blank" rel="noopener" class="s-whatsapp">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
         WhatsApp
       </a>
     </div>
-    <p class="footer-copy">&copy; 2026 Aviel Gendler &nbsp;·&nbsp; <a href="/privacy" class="footer-legal-link">Privacy</a> &nbsp;·&nbsp; <a href="/terms" class="footer-legal-link">Terms</a></p>
+    <p class="footer-copy">&copy; 2026 Aviel Gendler &nbsp;·&nbsp; <a href="/privacy/" class="footer-legal-link">Privacy</a> &nbsp;·&nbsp; <a href="/terms/" class="footer-legal-link">Terms</a> &nbsp;·&nbsp; <a href="/accessibility/" class="footer-legal-link">Accessibility</a></p>
   </footer>
 
   <script>
@@ -1587,9 +1601,11 @@
       setTimeout(() => {
         body.dataset.mode = mode;
         body.classList.remove('mode-switching');
-        // update toggle buttons
+        // update toggle buttons and ARIA state
         document.querySelectorAll('.mode-btn').forEach(btn => {
-          btn.classList.toggle('active', btn.classList.contains('mode-btn-' + mode));
+          const isActive = btn.classList.contains('mode-btn-' + mode);
+          btn.classList.toggle('active', isActive);
+          btn.setAttribute('aria-pressed', String(isActive));
         });
         // re-trigger scroll reveals for newly visible content
         document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => {
@@ -1671,12 +1687,16 @@
   const hamburger = document.getElementById('navHamburger');
   const navLinks = document.getElementById('navLinks');
   hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    navLinks.classList.toggle('open');
+    const isOpen = hamburger.classList.toggle('open');
+    navLinks.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', String(isOpen));
+    hamburger.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
   });
   function closeNav() {
     hamburger.classList.remove('open');
     navLinks.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    hamburger.setAttribute('aria-label', 'Open navigation menu');
   }
   </script>
 </body>

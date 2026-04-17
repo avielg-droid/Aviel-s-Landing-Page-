@@ -255,11 +255,18 @@
       .post-card { flex-direction: column; padding: 24px; gap: 16px; }
       .post-arrow { display: none; }
     }
+    /* Focus visible for keyboard navigation */
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--green);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+    :focus:not(:focus-visible) { outline: none; }
   </style>
 </head>
 <body>
 
-  <nav>
+  <nav aria-label="Primary navigation">
     <a href="/" class="nav-logo">avielg.com</a>
     <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu">
       <span></span><span></span><span></span>

@@ -18,7 +18,7 @@
       --surface: #F0FDFB;
       --card: #F6FDFC;
       --border: #CCEAE7;
-      --green: #0D9488;
+      --green: #0f766e;
       --text: #111827;
       --muted: #6B7280;
       --radius: 12px;
@@ -99,11 +99,18 @@
       .nav-links { display: none; }
       .page-wrap { padding: 100px 20px 60px; }
     }
+    /* Focus visible for keyboard navigation */
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--green);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+    :focus:not(:focus-visible) { outline: none; }
   </style>
 </head>
 <body>
 
-  <nav>
+  <nav aria-label="Primary navigation">
     <a href="/" class="nav-logo">Aviel G.<span class="cursor"></span></a>
     <div class="nav-links">
       <a href="/#services">Services</a>
@@ -175,7 +182,7 @@
 
     <div class="page-footer">
       <a href="/">← Back to Home</a>
-      <span><a href="/privacy/">Privacy Policy</a> · © 2026 Aviel Gendler</span>
+      <span><a href="/privacy/">Privacy</a> · <a href="/accessibility/">Accessibility</a> · © 2026 Aviel Gendler</span>
     </div>
 
   </div>
