@@ -131,6 +131,14 @@
       '}',
       'html[data-theme="dark"] table{border-color:var(--border)!important;}',
 
+      /* ── Logo carousel: invert so white bgs blend into dark bg ────  */
+      'html[data-theme="dark"] .logo-item img{',
+        'filter:grayscale(100%) invert(1) opacity(.55)!important;',
+      '}',
+      'html[data-theme="dark"] .logo-item img:hover{',
+        'filter:grayscale(20%) invert(1) opacity(1)!important;',
+      '}',
+
       /* ── Footer social buttons stay branded ─────────────────────  */
       'html[data-theme="dark"] .s-linkedin{background:#0a66c2!important;}',
       'html[data-theme="dark"] .s-whatsapp{background:#128c7e!important;}',
