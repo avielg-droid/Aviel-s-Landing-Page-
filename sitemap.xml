@@ -13,6 +13,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://avielg.com/blog/amazon-vine-program/</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://avielg.com/blog/amazon-brand-registry/</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://avielg.com/blog/build-brand-on-amazon/</loc>
     <lastmod>2026-04-21</lastmod>
     <changefreq>monthly</changefreq>
