@@ -131,20 +131,26 @@
       '}',
       'html[data-theme="dark"] table{border-color:var(--border)!important;}',
 
-      /* ── Logo carousel: consistent pill card per logo ──────────────  */
+      /* ── Logo carousel: unified frosted strip ───────────────────────  */
       /*
-       * Blend modes fail here because the CSS animation on .logo-track
-       * creates an isolated compositing layer — mix-blend-mode can't
-       * punch through to the page bg. Instead: each logo item gets a
-       * subtle light pill so all logos sit on a consistent surface and
-       * no individual bg stands out.
+       * Blend modes don't work — .logo-track creates an isolated
+       * compositing layer (CSS animation stacking context).
+       * Solution: one cohesive light strip under all logos so every
+       * logo sits on the same surface. No per-logo pill boxes.
        */
-      'html[data-theme="dark"] .logo-item{',
-        'background:rgba(255,255,255,.07);',
-        'border-radius:10px;',
+      'html[data-theme="dark"] .logo-carousel-wrap{',
+        'background:rgba(255,255,255,.06);',
+        'border-radius:16px;',
+      '}',
+      /* Re-anchor the edge fade gradients to the strip bg, not page bg */
+      'html[data-theme="dark"] .logo-carousel-wrap::before{',
+        'background:linear-gradient(to right,rgba(255,255,255,.06),transparent)!important;',
+      '}',
+      'html[data-theme="dark"] .logo-carousel-wrap::after{',
+        'background:linear-gradient(to left,rgba(255,255,255,.06),transparent)!important;',
       '}',
       'html[data-theme="dark"] .logo-item img{',
-        'filter:grayscale(100%) opacity(.65)!important;',
+        'filter:grayscale(100%) opacity(.6)!important;',
       '}',
       'html[data-theme="dark"] .logo-item img:hover{',
         'filter:grayscale(0%) opacity(1)!important;',

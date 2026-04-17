@@ -826,6 +826,8 @@
       overflow: hidden;
       position: relative;
     }
+    /* Make the aria-hidden wrapper invisible to layout so set 2 aligns with set 1 */
+    .logo-track > div[aria-hidden="true"] { display: contents; }
     .logo-carousel-wrap::before,
     .logo-carousel-wrap::after {
       content: '';
