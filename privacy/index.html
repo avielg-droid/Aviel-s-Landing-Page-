@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Aviel Gendler</title>
+  <meta name="description" content="Privacy policy for avielg.com — how Aviel Gendler collects, uses, and protects your information." />
+  <link rel="canonical" href="https://avielg.com/privacy/" />
+  <meta name="robots" content="noindex" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400&family=Roboto+Flex:opsz,wght@8..144,300;8..144,400;8..144,500;8..144,600;8..144,700;8..144,800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #FAFFFE;
+      --surface: #F0FDFB;
+      --card: #F6FDFC;
+      --border: #CCEAE7;
+      --green: #0D9488;
+      --text: #111827;
+      --muted: #6B7280;
+      --radius: 12px;
+      --mono: 'JetBrains Mono', monospace;
+      --sans: 'Roboto Flex', sans-serif;
+      --display: 'Fraunces', serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--text); min-height: 100dvh; overflow-x: hidden; }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle, #9FEDE7 1px, transparent 1px);
+      background-size: 32px 32px;
+      opacity: .25;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0.038;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 300px 300px;
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 60px;
+      background: rgba(250,255,254,.88);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .nav-logo { font-family: var(--mono); font-weight: 700; font-size: 1rem; color: var(--green); text-decoration: none; display: flex; align-items: center; }
+    .nav-logo .cursor { display: inline-block; width: 2px; height: 1em; background: var(--green); margin-left: 2px; animation: blink 1.1s step-end infinite; vertical-align: middle; }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: .82rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; transition: color .2s; }
+    .nav-links a:hover { color: var(--text); }
+
+    .page-wrap { max-width: 720px; margin: 0 auto; padding: 120px 40px 100px; position: relative; z-index: 1; }
+
+    .breadcrumb { font-family: var(--mono); font-size: .75rem; color: var(--muted); margin-bottom: 32px; display: flex; align-items: center; gap: 8px; }
+    .breadcrumb a { color: var(--green); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { opacity: .5; }
+
+    .page-tag { display: inline-block; font-family: var(--mono); font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--green); background: var(--surface); border: 1px solid var(--border); padding: 4px 12px; border-radius: 20px; margin-bottom: 20px; }
+
+    h1 { font-family: var(--display); font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 700; line-height: 1.15; letter-spacing: -.02em; margin-bottom: 12px; text-wrap: balance; }
+
+    .page-meta { font-family: var(--mono); font-size: .75rem; color: var(--muted); margin-bottom: 48px; padding-bottom: 24px; border-bottom: 2px solid var(--border); }
+
+    .legal-body { font-size: 1rem; line-height: 1.8; color: var(--text); }
+    .legal-body h2 { font-family: var(--display); font-size: 1.35rem; font-weight: 700; margin: 44px 0 14px; letter-spacing: -.01em; padding-top: 8px; border-top: 1px solid var(--border); text-wrap: balance; }
+    .legal-body p { margin-bottom: 18px; }
+    .legal-body ul { margin: 12px 0 20px 24px; }
+    .legal-body li { margin-bottom: 8px; line-height: 1.7; }
+    .legal-body a { color: var(--green); text-underline-offset: 3px; }
+    .legal-body strong { font-weight: 600; }
+
+    .page-footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: .75rem; color: var(--muted); flex-wrap: wrap; gap: 12px; }
+    .page-footer a { color: var(--green); text-decoration: none; }
+    .page-footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .page-wrap { padding: 100px 20px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">Aviel G.<span class="cursor"></span></a>
+    <div class="nav-links">
+      <a href="/#services">Services</a>
+      <a href="/#why">Why Me</a>
+      <a href="/blog/">Blog</a>
+      <a href="/#contact">Contact</a>
+    </div>
+  </nav>
+
+  <main id="main-content">
+  <div class="page-wrap">
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span>/</span>
+      <span>Privacy Policy</span>
+    </nav>
+
+    <div class="page-tag">Legal</div>
+    <h1>Privacy Policy</h1>
+    <p class="page-meta">Last updated: April 23, 2026</p>
+
+    <div class="legal-body">
+
+      <p>This privacy policy explains how Aviel Gendler ("I", "me", or "my") collects, uses, and protects information when you visit avielg.com or contact me about my services.</p>
+
+      <h2>Information I collect</h2>
+      <p>I collect information you provide directly, such as:</p>
+      <ul>
+        <li>Your name and email address when you contact me via email or LinkedIn</li>
+        <li>Your phone number if you reach out via WhatsApp</li>
+        <li>Business details you share when discussing a project</li>
+      </ul>
+      <p>I also collect basic usage data automatically through Vercel Analytics, including pages visited, time spent, browser type, and approximate geographic region. This data is aggregated and not linked to individual identities.</p>
+
+      <h2>How I use your information</h2>
+      <p>Information you provide is used solely to:</p>
+      <ul>
+        <li>Respond to your inquiry and discuss potential projects</li>
+        <li>Deliver agreed services and communicate about ongoing work</li>
+        <li>Send relevant updates if you have opted in</li>
+      </ul>
+      <p>I do not sell, rent, or share your personal information with third parties for marketing purposes.</p>
+
+      <h2>Cookies and analytics</h2>
+      <p>This site uses <strong>Vercel Analytics</strong> for page view tracking. Vercel Analytics is privacy-focused and does not use cookies or store personally identifiable data. No third-party advertising trackers are present on this site.</p>
+
+      <h2>Data retention</h2>
+      <p>Email correspondence and project-related communications are retained for as long as the professional relationship is active and for a reasonable period afterward for legal and business purposes. You may request deletion of your personal data at any time by contacting me directly.</p>
+
+      <h2>Third-party services</h2>
+      <p>This site is hosted on <strong>Vercel</strong>. Contact forms link to <strong>LinkedIn</strong> and <strong>WhatsApp</strong>. Each of these services has its own privacy policy that governs data processed through their platforms.</p>
+
+      <h2>Your rights</h2>
+      <p>Depending on your location, you may have rights under applicable privacy law (including GDPR if you are in the EU/UK, or CCPA if you are in California) to:</p>
+      <ul>
+        <li>Access the personal data I hold about you</li>
+        <li>Request correction or deletion of your data</li>
+        <li>Object to or restrict how I process your data</li>
+        <li>Withdraw consent where processing is based on consent</li>
+      </ul>
+      <p>To exercise any of these rights, contact me at <a href="mailto:aviel@gendler.com">aviel@gendler.com</a>.</p>
+
+      <h2>Changes to this policy</h2>
+      <p>I may update this policy from time to time. The "last updated" date at the top of this page reflects the most recent revision. Continued use of this site after changes constitutes acceptance of the updated policy.</p>
+
+      <h2>Contact</h2>
+      <p>Questions about this privacy policy? Email <a href="mailto:aviel@gendler.com">aviel@gendler.com</a>.</p>
+
+    </div>
+
+    <div class="page-footer">
+      <a href="/">← Back to Home</a>
+      <span><a href="/terms/">Terms of Service</a> · © 2026 Aviel Gendler</span>
+    </div>
+
+  </div>
+  </main>
+
+</body>
+</html>

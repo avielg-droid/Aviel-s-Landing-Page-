@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Service — Aviel Gendler</title>
+  <meta name="description" content="Terms of service for avielg.com — the terms that govern use of this site and Aviel Gendler's consulting services." />
+  <link rel="canonical" href="https://avielg.com/terms/" />
+  <meta name="robots" content="noindex" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400&family=Roboto+Flex:opsz,wght@8..144,300;8..144,400;8..144,500;8..144,600;8..144,700;8..144,800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #FAFFFE;
+      --surface: #F0FDFB;
+      --card: #F6FDFC;
+      --border: #CCEAE7;
+      --green: #0D9488;
+      --text: #111827;
+      --muted: #6B7280;
+      --radius: 12px;
+      --mono: 'JetBrains Mono', monospace;
+      --sans: 'Roboto Flex', sans-serif;
+      --display: 'Fraunces', serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--text); min-height: 100dvh; overflow-x: hidden; }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle, #9FEDE7 1px, transparent 1px);
+      background-size: 32px 32px;
+      opacity: .25;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0.038;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 300px 300px;
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 60px;
+      background: rgba(250,255,254,.88);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .nav-logo { font-family: var(--mono); font-weight: 700; font-size: 1rem; color: var(--green); text-decoration: none; display: flex; align-items: center; }
+    .nav-logo .cursor { display: inline-block; width: 2px; height: 1em; background: var(--green); margin-left: 2px; animation: blink 1.1s step-end infinite; vertical-align: middle; }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: .82rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; transition: color .2s; }
+    .nav-links a:hover { color: var(--text); }
+
+    .page-wrap { max-width: 720px; margin: 0 auto; padding: 120px 40px 100px; position: relative; z-index: 1; }
+
+    .breadcrumb { font-family: var(--mono); font-size: .75rem; color: var(--muted); margin-bottom: 32px; display: flex; align-items: center; gap: 8px; }
+    .breadcrumb a { color: var(--green); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb span { opacity: .5; }
+
+    .page-tag { display: inline-block; font-family: var(--mono); font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--green); background: var(--surface); border: 1px solid var(--border); padding: 4px 12px; border-radius: 20px; margin-bottom: 20px; }
+
+    h1 { font-family: var(--display); font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 700; line-height: 1.15; letter-spacing: -.02em; margin-bottom: 12px; text-wrap: balance; }
+
+    .page-meta { font-family: var(--mono); font-size: .75rem; color: var(--muted); margin-bottom: 48px; padding-bottom: 24px; border-bottom: 2px solid var(--border); }
+
+    .legal-body { font-size: 1rem; line-height: 1.8; color: var(--text); }
+    .legal-body h2 { font-family: var(--display); font-size: 1.35rem; font-weight: 700; margin: 44px 0 14px; letter-spacing: -.01em; padding-top: 8px; border-top: 1px solid var(--border); text-wrap: balance; }
+    .legal-body p { margin-bottom: 18px; }
+    .legal-body ul { margin: 12px 0 20px 24px; }
+    .legal-body li { margin-bottom: 8px; line-height: 1.7; }
+    .legal-body a { color: var(--green); text-underline-offset: 3px; }
+    .legal-body strong { font-weight: 600; }
+
+    .page-footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: .75rem; color: var(--muted); flex-wrap: wrap; gap: 12px; }
+    .page-footer a { color: var(--green); text-decoration: none; }
+    .page-footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .page-wrap { padding: 100px 20px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">Aviel G.<span class="cursor"></span></a>
+    <div class="nav-links">
+      <a href="/#services">Services</a>
+      <a href="/#why">Why Me</a>
+      <a href="/blog/">Blog</a>
+      <a href="/#contact">Contact</a>
+    </div>
+  </nav>
+
+  <main id="main-content">
+  <div class="page-wrap">
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span>/</span>
+      <span>Terms of Service</span>
+    </nav>
+
+    <div class="page-tag">Legal</div>
+    <h1>Terms of Service</h1>
+    <p class="page-meta">Last updated: April 23, 2026</p>
+
+    <div class="legal-body">
+
+      <p>These terms of service govern your use of avielg.com and any consulting services provided by Aviel Gendler ("I", "me", or "my"). By accessing this site or engaging my services, you agree to these terms.</p>
+
+      <h2>Use of this website</h2>
+      <p>This website is provided for informational purposes. You may browse the content for personal, non-commercial use. You may not:</p>
+      <ul>
+        <li>Reproduce, republish, or redistribute any content without written permission</li>
+        <li>Use automated tools to scrape or crawl the site</li>
+        <li>Attempt to access any part of the site that is not publicly accessible</li>
+        <li>Use the site in any way that violates applicable laws or regulations</li>
+      </ul>
+
+      <h2>Consulting services</h2>
+      <p>Consulting engagements are governed by a separate services agreement signed by both parties. In the absence of a signed agreement, the following applies:</p>
+      <ul>
+        <li>All work is provided on a project or retainer basis agreed upon in writing (including email)</li>
+        <li>Payment terms are as specified in the project proposal or invoice</li>
+        <li>Either party may terminate an engagement with 14 days written notice unless otherwise agreed</li>
+        <li>Deliverables remain my intellectual property until payment is received in full</li>
+      </ul>
+
+      <h2>Intellectual property</h2>
+      <p>All content on this site — including text, graphics, and code — is my property or used with permission. Blog posts and articles may be quoted briefly with attribution and a link to the original. Full reproduction is not permitted without prior written consent.</p>
+      <p>Upon full payment for a consulting engagement, I grant you a non-exclusive license to use the deliverables I created for your business. I retain the right to reference the work in my portfolio unless you request otherwise in writing.</p>
+
+      <h2>Disclaimers</h2>
+      <p>The content on this site is for informational purposes only and does not constitute professional advice for your specific situation. Amazon's policies, advertising platforms, and marketplace rules change frequently. Always verify current requirements directly with Amazon before making business decisions.</p>
+      <p>Results described in case studies reflect specific client situations and are not guarantees of future performance. Individual results will vary based on product category, competition, budget, and other factors.</p>
+
+      <h2>Limitation of liability</h2>
+      <p>To the fullest extent permitted by law, I am not liable for any indirect, incidental, or consequential damages arising from your use of this site or any consulting services. My total liability for any claim arising from a consulting engagement is limited to the fees paid in the 30 days preceding the claim.</p>
+
+      <h2>Third-party links</h2>
+      <p>This site contains links to third-party websites including Amazon, LinkedIn, and other platforms. I am not responsible for the content or practices of those sites. Links are provided for convenience and do not constitute endorsement.</p>
+
+      <h2>Governing law</h2>
+      <p>These terms are governed by the laws of Israel. Any disputes arising from these terms or my services will be subject to the exclusive jurisdiction of the courts of Israel, unless otherwise agreed in writing.</p>
+
+      <h2>Changes to these terms</h2>
+      <p>I may update these terms from time to time. The "last updated" date at the top of this page reflects the most recent revision. Continued use of this site after changes constitutes acceptance of the updated terms.</p>
+
+      <h2>Contact</h2>
+      <p>Questions about these terms? Email <a href="mailto:aviel@gendler.com">aviel@gendler.com</a>.</p>
+
+    </div>
+
+    <div class="page-footer">
+      <a href="/">← Back to Home</a>
+      <span><a href="/privacy/">Privacy Policy</a> · © 2026 Aviel Gendler</span>
+    </div>
+
+  </div>
+  </main>
+
+</body>
+</html>
