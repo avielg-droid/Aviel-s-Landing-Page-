@@ -131,23 +131,24 @@
       '}',
       'html[data-theme="dark"] table{border-color:var(--border)!important;}',
 
-      /* ── Logo carousel: invert + screen blend dissolves any bg ─────  */
+      /* ── Logo carousel: consistent pill card per logo ──────────────  */
       /*
-       * invert(1): white bg→black, dark marks→white
-       * mix-blend-mode:screen: black pixels dissolve into dark page bg
-       * Result: all logo backgrounds vanish regardless of original color
+       * Blend modes fail here because the CSS animation on .logo-track
+       * creates an isolated compositing layer — mix-blend-mode can't
+       * punch through to the page bg. Instead: each logo item gets a
+       * subtle light pill so all logos sit on a consistent surface and
+       * no individual bg stands out.
        */
+      'html[data-theme="dark"] .logo-item{',
+        'background:rgba(255,255,255,.07);',
+        'border-radius:10px;',
+      '}',
       'html[data-theme="dark"] .logo-item img{',
-        'filter:grayscale(100%) invert(1) opacity(.6)!important;',
-        'mix-blend-mode:screen;',
+        'filter:grayscale(100%) opacity(.65)!important;',
       '}',
       'html[data-theme="dark"] .logo-item img:hover{',
-        'filter:grayscale(20%) invert(1) opacity(1)!important;',
-        'mix-blend-mode:screen;',
+        'filter:grayscale(0%) opacity(1)!important;',
       '}',
-
-      /* ── Carousel: GPU layer prevents jump during theme transition ──  */
-      '.logo-track{will-change:transform;backface-visibility:hidden;}',
 
       /* ── Footer social buttons stay branded ─────────────────────  */
       'html[data-theme="dark"] .s-linkedin{background:#0a66c2!important;}',
@@ -209,8 +210,8 @@
       '}',
 
       /* ── Transition: smooth theme switch ────────────────────────  */
-      /* Exclude .logo-track so the CSS animation doesn't jump on toggle */
-      'html.theme-transitioning *:not(.logo-track){',
+      /* Exclude logo track/items so the carousel animation doesn't jump */
+      'html.theme-transitioning *:not(.logo-track):not(.logo-item):not(.logo-item img){',
         'transition:',
           'background-color .25s ease,',
           'color .2s ease,',
