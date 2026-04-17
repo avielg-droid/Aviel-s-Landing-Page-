@@ -973,6 +973,72 @@
       .campaign-status { grid-column: 2; }
       section { padding: 70px 24px; }
     }
+
+    /* ── Nav logo as link ── */
+    a.nav-logo { text-decoration: none; }
+
+    /* ── Hamburger pointer ── */
+    .nav-hamburger { cursor: pointer; }
+
+    /* ── Focus visible ── */
+    .btn:focus-visible {
+      outline: 2px solid var(--green);
+      outline-offset: 3px;
+      box-shadow: 0 0 0 4px rgba(79,70,229,.15);
+    }
+    .mode-btn:focus-visible {
+      outline: 2px solid var(--green);
+      outline-offset: 2px;
+    }
+
+    /* ── Marketer mode: CSS-driven orange overrides (replaces inline styles) ── */
+    .mode-marketer .hero-eyebrow { color: var(--orange); }
+    .mode-marketer .highlight { color: var(--orange); }
+    .mode-marketer .typewriter-cursor { color: var(--orange); }
+    .mode-marketer .perf-live { color: var(--orange); }
+    .mode-marketer .perf-live-dot { background: var(--orange); }
+    .mode-marketer .perf-stat-value { color: var(--orange); }
+    .mode-marketer .perf-stat-badge {
+      background: rgba(236,72,153,.1);
+      color: var(--orange);
+      border-color: rgba(236,72,153,.2);
+    }
+    .mode-marketer .perf-tag-dot { background: var(--orange); }
+    .mode-marketer .section-label { color: var(--orange); }
+    .mode-marketer .why-check {
+      color: var(--orange);
+      background: rgba(236,72,153,.08);
+      border-color: rgba(236,72,153,.18);
+    }
+    .mode-marketer .campaign-status {
+      background: rgba(236,72,153,.08);
+      color: var(--orange);
+      border-color: rgba(236,72,153,.18);
+    }
+    .mode-marketer .campaign-status-dot { background: var(--orange); }
+    .mode-marketer .campaign-row:hover {
+      background: rgba(236,72,153,.05);
+      border-left-color: var(--orange);
+    }
+    .marquee-track.mode-marketer,
+    .marquee-track.mode-marketer .up { color: var(--orange); }
+
+    /* ── CTA band button size ── */
+    .btn-lg { font-size: .9rem; padding: 14px 32px; }
+
+    /* ── Section label centred variant ── */
+    .section-label--center { justify-content: center; margin-bottom: 20px; }
+
+    /* ── Respect reduced-motion ── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .marquee-track,
+      .logo-track { animation: none; transform: none; }
+    }
   </style>
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
@@ -980,7 +1046,7 @@
 
   <!-- Nav -->
   <nav id="nav">
-    <div class="nav-logo">Aviel G.</div>
+    <a href="/" class="nav-logo">Aviel G.<span class="cursor"></span></a>
     <div class="nav-right">
       <div class="nav-status">
         <div class="nav-status-dot"></div>
@@ -1026,10 +1092,10 @@
       </div>
 
       <div class="mode-marketer mode-fade">
-        <div class="hero-eyebrow" style="color:var(--orange)">02 / Full-Stack Marketer</div>
-        <div class="h1-display">The Marketer Who<br>Grows Brands —<br><span class="highlight" style="color:var(--orange)">Everywhere</span></div>
+        <div class="hero-eyebrow">02 / Full-Stack Marketer</div>
+        <div class="h1-display">The Marketer Who<br>Grows Brands —<br><span class="highlight">Everywhere</span></div>
         <div class="typewriter-wrap">
-          <span class="typewriter-text" id="typewriter-marketer"></span><span class="typewriter-cursor" style="color:var(--orange)">|</span>
+          <span class="typewriter-text" id="typewriter-marketer"></span><span class="typewriter-cursor">|</span>
         </div>
         <p class="hero-sub">
           Multi-channel digital strategy, agency leadership, and e-commerce growth
@@ -1087,37 +1153,37 @@
         <div class="mode-marketer mode-fade">
           <div class="perf-panel-header">
             <span class="perf-panel-title">Marketing Track Record</span>
-            <span class="perf-live" style="color:var(--orange)"><span class="perf-live-dot" style="background:var(--orange)"></span>Live</span>
+            <span class="perf-live"><span class="perf-live-dot"></span>Live</span>
           </div>
           <div class="perf-stats">
             <div class="perf-stat-row">
               <span class="perf-stat-label">Agency Clients</span>
-              <span class="perf-stat-value" style="color:var(--orange)" data-target="40" data-suffix="+" data-mode="marketer">40+</span>
-              <span class="perf-stat-badge" style="background:rgba(236,72,153,.1);color:var(--orange);border-color:rgba(236,72,153,.2)">&#9650; MANAGED</span>
+              <span class="perf-stat-value" data-target="40" data-suffix="+" data-mode="marketer">40+</span>
+              <span class="perf-stat-badge">&#9650; MANAGED</span>
             </div>
             <div class="perf-stat-row">
               <span class="perf-stat-label">Ad Spend Managed</span>
-              <span class="perf-stat-value" style="color:var(--orange)" data-target="8" data-prefix="$" data-suffix="M+" data-mode="marketer">$8M+</span>
-              <span class="perf-stat-badge" style="background:rgba(236,72,153,.1);color:var(--orange);border-color:rgba(236,72,153,.2)">&#9650; TRACKED</span>
+              <span class="perf-stat-value" data-target="8" data-prefix="$" data-suffix="M+" data-mode="marketer">$8M+</span>
+              <span class="perf-stat-badge">&#9650; TRACKED</span>
             </div>
             <div class="perf-stat-row">
               <span class="perf-stat-label">Conversion Lift</span>
-              <span class="perf-stat-value" style="color:var(--orange)" data-target="20" data-suffix="%" data-mode="marketer">20%</span>
-              <span class="perf-stat-badge" style="background:rgba(236,72,153,.1);color:var(--orange);border-color:rgba(236,72,153,.2)">&#9679; MEASURED</span>
+              <span class="perf-stat-value" data-target="20" data-suffix="%" data-mode="marketer">20%</span>
+              <span class="perf-stat-badge">&#9679; MEASURED</span>
             </div>
             <div class="perf-stat-row">
               <span class="perf-stat-label">Years Experience</span>
-              <span class="perf-stat-value" style="color:var(--orange)" data-target="10" data-suffix="+" data-mode="marketer">10+</span>
-              <span class="perf-stat-badge" style="background:rgba(236,72,153,.1);color:var(--orange);border-color:rgba(236,72,153,.2)">&#9679; EXPERT</span>
+              <span class="perf-stat-value" data-target="10" data-suffix="+" data-mode="marketer">10+</span>
+              <span class="perf-stat-badge">&#9679; EXPERT</span>
             </div>
           </div>
           <div class="perf-panel-footer">
-            <span class="perf-tag"><span class="perf-tag-dot" style="background:var(--orange)"></span>MULTI-CHANNEL</span>
-            <span class="perf-tag"><span class="perf-tag-dot" style="background:var(--orange)"></span>BRAND STRATEGY</span>
-            <span class="perf-tag"><span class="perf-tag-dot" style="background:var(--orange)"></span>E-COMMERCE</span>
-            <span class="perf-tag"><span class="perf-tag-dot" style="background:var(--orange)"></span>CONTENT</span>
-            <span class="perf-tag"><span class="perf-tag-dot" style="background:var(--orange)"></span>TEAM LEAD</span>
-            <span class="perf-tag"><span class="perf-tag-dot" style="background:var(--orange)"></span>DATA-DRIVEN</span>
+            <span class="perf-tag"><span class="perf-tag-dot"></span>MULTI-CHANNEL</span>
+            <span class="perf-tag"><span class="perf-tag-dot"></span>BRAND STRATEGY</span>
+            <span class="perf-tag"><span class="perf-tag-dot"></span>E-COMMERCE</span>
+            <span class="perf-tag"><span class="perf-tag-dot"></span>CONTENT</span>
+            <span class="perf-tag"><span class="perf-tag-dot"></span>TEAM LEAD</span>
+            <span class="perf-tag"><span class="perf-tag-dot"></span>DATA-DRIVEN</span>
           </div>
         </div>
       </div>
@@ -1144,23 +1210,23 @@
       <span class="up">&#9650; A+ Content</span><span class="sep">|</span>
       <span class="up">&#9650; Revenue Growth</span><span class="sep">|</span>
     </div>
-    <div class="marquee-track mode-marketer" style="color:var(--orange)">
-      <span class="up" style="color:var(--orange)">&#9650; Multi-Channel PPC</span><span class="sep">|</span>
-      <span class="up" style="color:var(--orange)">&#9650; Brand Strategy</span><span class="sep">|</span>
-      <span class="up" style="color:var(--orange)">&#9650; E-commerce Growth</span><span class="sep">|</span>
-      <span class="up" style="color:var(--orange)">&#9650; Digital Campaigns</span><span class="sep">|</span>
-      <span class="up" style="color:var(--orange)">&#9650; Content Direction</span><span class="sep">|</span>
-      <span class="up" style="color:var(--orange)">&#9650; Team Leadership</span><span class="sep">|</span>
-      <span class="up" style="color:var(--orange)">&#9650; A/B Testing</span><span class="sep">|</span>
-      <span class="up" style="color:var(--orange)">&#9650; Retention Growth</span><span class="sep">|</span>
-      <span class="up" style="color:var(--orange)">&#9650; Multi-Channel PPC</span><span class="sep">|</span>
-      <span class="up" style="color:var(--orange)">&#9650; Brand Strategy</span><span class="sep">|</span>
-      <span class="up" style="color:var(--orange)">&#9650; E-commerce Growth</span><span class="sep">|</span>
-      <span class="up" style="color:var(--orange)">&#9650; Digital Campaigns</span><span class="sep">|</span>
-      <span class="up" style="color:var(--orange)">&#9650; Content Direction</span><span class="sep">|</span>
-      <span class="up" style="color:var(--orange)">&#9650; Team Leadership</span><span class="sep">|</span>
-      <span class="up" style="color:var(--orange)">&#9650; A/B Testing</span><span class="sep">|</span>
-      <span class="up" style="color:var(--orange)">&#9650; Retention Growth</span><span class="sep">|</span>
+    <div class="marquee-track mode-marketer">
+      <span class="up">&#9650; Multi-Channel PPC</span><span class="sep">|</span>
+      <span class="up">&#9650; Brand Strategy</span><span class="sep">|</span>
+      <span class="up">&#9650; E-commerce Growth</span><span class="sep">|</span>
+      <span class="up">&#9650; Digital Campaigns</span><span class="sep">|</span>
+      <span class="up">&#9650; Content Direction</span><span class="sep">|</span>
+      <span class="up">&#9650; Team Leadership</span><span class="sep">|</span>
+      <span class="up">&#9650; A/B Testing</span><span class="sep">|</span>
+      <span class="up">&#9650; Retention Growth</span><span class="sep">|</span>
+      <span class="up">&#9650; Multi-Channel PPC</span><span class="sep">|</span>
+      <span class="up">&#9650; Brand Strategy</span><span class="sep">|</span>
+      <span class="up">&#9650; E-commerce Growth</span><span class="sep">|</span>
+      <span class="up">&#9650; Digital Campaigns</span><span class="sep">|</span>
+      <span class="up">&#9650; Content Direction</span><span class="sep">|</span>
+      <span class="up">&#9650; Team Leadership</span><span class="sep">|</span>
+      <span class="up">&#9650; A/B Testing</span><span class="sep">|</span>
+      <span class="up">&#9650; Retention Growth</span><span class="sep">|</span>
     </div>
   </div>
 
@@ -1263,20 +1329,20 @@
 
     <!-- Marketer mode -->
     <div class="mode-marketer">
-      <div class="section-label reveal" style="color:var(--orange)">What I Do</div>
+      <div class="section-label reveal">What I Do</div>
       <h2 class="section-title reveal">Full-Stack Marketing<br>Services</h2>
       <p class="section-sub reveal">
         From brand strategy to performance campaigns — every dimension of
         digital marketing covered to grow your business across all channels.
       </p>
       <div class="services-table reveal-stagger">
-        <div class="campaign-row" style="--hover-color: var(--orange)">
+        <div class="campaign-row">
           <span class="campaign-num">01</span>
           <div class="campaign-info">
             <div class="campaign-name">Multi-Channel PPC</div>
             <div class="campaign-desc">Performance campaigns across paid search and social — built to lower CPAs, scale spend profitably, and hit ROAS targets.</div>
           </div>
-          <span class="campaign-status" style="background:rgba(236,72,153,.08);color:var(--orange);border-color:rgba(236,72,153,.18)"><span class="campaign-status-dot" style="background:var(--orange)"></span>RUNNING</span>
+          <span class="campaign-status"><span class="campaign-status-dot"></span>RUNNING</span>
         </div>
         <div class="campaign-row">
           <span class="campaign-num">02</span>
@@ -1284,7 +1350,7 @@
             <div class="campaign-name">Brand Strategy &amp; Identity</div>
             <div class="campaign-desc">Positioning, messaging, and visual identity that cut through noise — built on audience insight and competitive analysis.</div>
           </div>
-          <span class="campaign-status" style="background:rgba(236,72,153,.08);color:var(--orange);border-color:rgba(236,72,153,.18)"><span class="campaign-status-dot" style="background:var(--orange)"></span>ACTIVE</span>
+          <span class="campaign-status"><span class="campaign-status-dot"></span>ACTIVE</span>
         </div>
         <div class="campaign-row">
           <span class="campaign-num">03</span>
@@ -1292,7 +1358,7 @@
             <div class="campaign-name">E-commerce Growth</div>
             <div class="campaign-desc">Full-funnel e-commerce strategy beyond Amazon — Shopify, marketplaces, and DTC channels optimized for conversion and retention.</div>
           </div>
-          <span class="campaign-status" style="background:rgba(236,72,153,.08);color:var(--orange);border-color:rgba(236,72,153,.18)"><span class="campaign-status-dot" style="background:var(--orange)"></span>SCALING</span>
+          <span class="campaign-status"><span class="campaign-status-dot"></span>SCALING</span>
         </div>
         <div class="campaign-row">
           <span class="campaign-num">04</span>
@@ -1300,7 +1366,7 @@
             <div class="campaign-name">Marketing Team Leadership</div>
             <div class="campaign-desc">Built and led 8-person teams across PPC, design, and content — from hiring to KPIs to cross-functional delivery.</div>
           </div>
-          <span class="campaign-status" style="background:rgba(236,72,153,.08);color:var(--orange);border-color:rgba(236,72,153,.18)"><span class="campaign-status-dot" style="background:var(--orange)"></span>LEADING</span>
+          <span class="campaign-status"><span class="campaign-status-dot"></span>LEADING</span>
         </div>
         <div class="campaign-row">
           <span class="campaign-num">05</span>
@@ -1308,7 +1374,7 @@
             <div class="campaign-name">Content &amp; Creative Direction</div>
             <div class="campaign-desc">Content strategy and creative briefs that align brand voice with performance goals — from ad copy to long-form storytelling.</div>
           </div>
-          <span class="campaign-status" style="background:rgba(236,72,153,.08);color:var(--orange);border-color:rgba(236,72,153,.18)"><span class="campaign-status-dot" style="background:var(--orange)"></span>LIVE</span>
+          <span class="campaign-status"><span class="campaign-status-dot"></span>LIVE</span>
         </div>
         <div class="campaign-row">
           <span class="campaign-num">06</span>
@@ -1316,7 +1382,7 @@
             <div class="campaign-name">Data-Driven Campaigns &amp; A/B Testing</div>
             <div class="campaign-desc">Continuous experimentation frameworks — A/B testing, behavioral analytics, and conversion optimization that compound over time.</div>
           </div>
-          <span class="campaign-status" style="background:rgba(236,72,153,.08);color:var(--orange);border-color:rgba(236,72,153,.18)"><span class="campaign-status-dot" style="background:var(--orange)"></span>OPTIMIZED</span>
+          <span class="campaign-status"><span class="campaign-status-dot"></span>OPTIMIZED</span>
         </div>
       </div>
     </div>
@@ -1358,7 +1424,7 @@
 
     <!-- Marketer mode -->
     <div class="mode-marketer">
-      <div class="section-label reveal" style="color:var(--orange)">Why Choose Me</div>
+      <div class="section-label reveal">Why Choose Me</div>
       <h2 class="section-title reveal">A Marketer Who Thinks<br>Like a Builder</h2>
       <p class="section-sub reveal">
         Strategy without execution is just theory. I bring both — hands-on
@@ -1367,22 +1433,22 @@
       </p>
       <div class="why-grid reveal-stagger">
         <div class="why-item">
-          <div class="why-check" style="color:var(--orange);background:rgba(236,72,153,.08);border-color:rgba(236,72,153,.18)">&#10003; PROVEN</div>
+          <div class="why-check">&#10003; PROVEN</div>
           <div class="why-title">Agency-Tested, Brand-Ready</div>
           <div class="why-desc">Founded and ran a 30-client digital agency — I know what scales and what doesn't, across industries and budgets.</div>
         </div>
         <div class="why-item">
-          <div class="why-check" style="color:var(--orange);background:rgba(236,72,153,.08);border-color:rgba(236,72,153,.18)">&#10003; PROVEN</div>
+          <div class="why-check">&#10003; PROVEN</div>
           <div class="why-title">Full-Channel Coverage</div>
           <div class="why-desc">From paid search to e-commerce to content strategy — I connect the dots across channels so your brand stays consistent and profitable.</div>
         </div>
         <div class="why-item">
-          <div class="why-check" style="color:var(--orange);background:rgba(236,72,153,.08);border-color:rgba(236,72,153,.18)">&#9670; PM MINDSET</div>
+          <div class="why-check">&#9670; PM MINDSET</div>
           <div class="why-title">Product Manager Perspective</div>
           <div class="why-desc">Hands-on PM experience at a global AB InBev platform — I think in user journeys, funnels, and feature impact, not just campaigns.</div>
         </div>
         <div class="why-item">
-          <div class="why-check" style="color:var(--orange);background:rgba(236,72,153,.08);border-color:rgba(236,72,153,.18)">&#10003; PROVEN</div>
+          <div class="why-check">&#10003; PROVEN</div>
           <div class="why-title">Data Before Decisions</div>
           <div class="why-desc">Every strategy starts with numbers. A/B tests, cohort analysis, retention curves — I build marketing that compounds over time.</div>
         </div>
@@ -1392,20 +1458,20 @@
 
   <!-- CTA Band -->
   <div class="cta-band reveal" id="contact">
-    <div class="section-label" style="justify-content:center; margin-bottom:20px;">Let's Connect</div>
+    <div class="section-label section-label--center">Let's Connect</div>
     <h2 class="mode-amazon">Ready to Grow Your<br>Amazon Business?</h2>
     <h2 class="mode-marketer">Ready to Build Something<br>Great Together?</h2>
     <p class="mode-amazon">Let's talk about your goals and build a strategy that gets you there. First consultation is on me.</p>
     <p class="mode-marketer">Whether you need a Head of Marketing, a strategic partner, or a campaign that actually moves the needle — let's talk. First consultation is on me.</p>
     <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center;">
-      <a href="mailto:aviel@gendler.com" class="btn btn-primary" style="font-size:.9rem; padding: 14px 32px;">
+      <a href="mailto:aviel@gendler.com" class="btn btn-primary btn-lg">
         Send a Message
       </a>
-      <a href="https://www.linkedin.com/in/aviel-gendler-marketing/" target="_blank" rel="noopener" class="btn btn-linkedin" style="font-size:.9rem; padding: 14px 32px;">
+      <a href="https://www.linkedin.com/in/aviel-gendler-marketing/" target="_blank" rel="noopener" class="btn btn-linkedin btn-lg">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
         Connect on LinkedIn
       </a>
-      <a href="https://wa.me/972547516999" target="_blank" rel="noopener" class="btn btn-whatsapp" style="font-size:.9rem; padding: 14px 32px;">
+      <a href="https://wa.me/972547516999" target="_blank" rel="noopener" class="btn btn-whatsapp btn-lg">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
         WhatsApp Me
       </a>
