@@ -131,28 +131,24 @@
       '}',
       'html[data-theme="dark"] table{border-color:var(--border)!important;}',
 
-      /* ── Logo carousel: unified frosted strip ───────────────────────  */
+      /* ── Logo carousel ───────────────────────────────────────────────  */
       /*
-       * Blend modes don't work — .logo-track creates an isolated
-       * compositing layer (CSS animation stacking context).
-       * Solution: one cohesive light strip under all logos so every
-       * logo sits on the same surface. No per-logo pill boxes.
+       * All 6 solid-bg logos now have transparent bgs (PIL flood-fill).
+       * invert(1): dark marks → white → visible on dark bg.
+       * .logo-dm-ok = Artori (white-on-black): no invert needed, dark bg
+       * blends naturally with page bg.
+       * Hover: show in color without invert (transparent bg = no box).
        */
-      'html[data-theme="dark"] .logo-carousel-wrap{',
-        'background:rgba(255,255,255,.06);',
-        'border-radius:16px;',
-      '}',
-      /* Re-anchor the edge fade gradients to the strip bg, not page bg */
-      'html[data-theme="dark"] .logo-carousel-wrap::before{',
-        'background:linear-gradient(to right,rgba(255,255,255,.06),transparent)!important;',
-      '}',
-      'html[data-theme="dark"] .logo-carousel-wrap::after{',
-        'background:linear-gradient(to left,rgba(255,255,255,.06),transparent)!important;',
-      '}',
       'html[data-theme="dark"] .logo-item img{',
-        'filter:grayscale(100%) opacity(.6)!important;',
+        'filter:grayscale(100%) invert(1) opacity(.6)!important;',
       '}',
       'html[data-theme="dark"] .logo-item img:hover{',
+        'filter:grayscale(0%) opacity(1)!important;',
+      '}',
+      'html[data-theme="dark"] .logo-item.logo-dm-ok img{',
+        'filter:grayscale(100%) opacity(.5)!important;',
+      '}',
+      'html[data-theme="dark"] .logo-item.logo-dm-ok img:hover{',
         'filter:grayscale(0%) opacity(1)!important;',
       '}',
 
